@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default theme — overridden per-customer by values from Sanity Site Settings */
+:root {
+  /* Primary palette (shades auto-generated from base) */
+  --color-primary-50:  #f0f9f0;
+  --color-primary-100: #dcf0dc;
+  --color-primary-200: #bce3bc;
+  --color-primary-300: #8fcf8f;
+  --color-primary-400: #5cb45c;
+  --color-primary-500: #3a9a3a;
+  --color-primary-600: #2d7d2d;
+  --color-primary-700: #256325;
+  --color-primary-800: #1e4e1e;
+  --color-primary-900: #183d18;
+
+  /* Accent */
+  --color-accent:       #c8a96e;
+  --color-accent-light: #e8d4ad;
+  --color-accent-dark:  #9e7c42;
+
+  /* Typography */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lato', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply font-body text-gray-800 bg-white;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer utilities {
+  .prose-breeder {
+    @apply prose prose-lg max-w-none
+      prose-headings:font-heading
+      prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline
+      prose-img:rounded-lg;
+  }
+}
