@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import TextBlock from './TextBlock'
 import HeroBlock from './HeroBlock'
 import FeaturedDogsBlock from './FeaturedDogsBlock'
 import FeaturedLittersBlock from './FeaturedLittersBlock'
+import ContactFormBlock from './ContactFormBlock'
 import PortableTextRenderer from '@/components/ui/PortableTextRenderer'
 import NewsCard from '@/components/news/NewsCard'
 import { urlForImage } from '@/sanity/lib/image'
@@ -19,9 +19,6 @@ import type {
   ContactFormBlock as ContactFormBlockType,
   CallToActionBlock,
 } from '@/types'
-
-// ContactForm is client-side, dynamic import to avoid SSR issues
-const ContactFormBlock = dynamic(() => import('./ContactFormBlock'), { ssr: false })
 
 interface PageBuilderProps {
   blocks: PageContentBlock[]
