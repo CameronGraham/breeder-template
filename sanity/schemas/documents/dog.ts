@@ -53,9 +53,26 @@ export const dog = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'kcRegistrationNumber',
-      title: 'KC Registration Number',
-      type: 'string',
+      name: 'registrationNumbers',
+      title: 'Registration Numbers',
+      type: 'array',
+      description: 'Add any registration numbers with their label (e.g. "KC Registration Number", "WBCS Number")',
+      of: [
+        {
+          type: 'object',
+          name: 'registrationNumber',
+          fields: [
+            defineField({ name: 'label', title: 'Label', type: 'string', validation: (Rule) => Rule.required() }),
+            defineField({ name: 'value', title: 'Number', type: 'string', validation: (Rule) => Rule.required() }),
+          ],
+          preview: {
+            select: { label: 'label', value: 'value' },
+            prepare({ label, value }) {
+              return { title: label, subtitle: value }
+            },
+          },
+        },
+      ],
     }),
     defineField({
       name: 'status',
@@ -63,6 +80,7 @@ export const dog = defineType({
       type: 'string',
       options: {
         list: [
+          { title: 'None (hidden)', value: 'none' },
           { title: 'Active', value: 'active' },
           { title: 'Retired', value: 'retired' },
           { title: 'Deceased', value: 'deceased' },
