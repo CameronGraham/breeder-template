@@ -57,11 +57,11 @@ export default async function LitterPage({
 
   const sireName = litter.sire
     ? (litter.sire.displayName || litter.sire.name)
-    : (litter.sireKcTitle ? `${litter.sireKcTitle} ${litter.sireName}` : litter.sireName)
+    : litter.sireName
 
   const damName = litter.dam
     ? (litter.dam.displayName || litter.dam.name)
-    : (litter.damKcTitle ? `${litter.damKcTitle} ${litter.damName}` : litter.damName)
+    : litter.damName
 
   const sireHealthTests = litter.sire?.healthTests || litter.sireHealthTests
   const damHealthTests = litter.dam?.healthTests || litter.damHealthTests
@@ -130,7 +130,12 @@ export default async function LitterPage({
                   <p className="font-heading text-xl font-semibold text-gray-800">{sireName || 'TBC'}</p>
                 )}
                 {litter.sireKcReg && !litter.sire && (
-                  <p className="text-sm text-gray-500 mt-1">KC Reg: {litter.sireKcReg}</p>
+                  <dl className="space-y-1 text-sm mt-2">
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">KC Reg</dt>
+                      <dd className="font-medium text-gray-800 text-right">{litter.sireKcReg}</dd>
+                    </div>
+                  </dl>
                 )}
                 {sireHealthTests && sireHealthTests.length > 0 && (
                   <div className="mt-4">
@@ -167,7 +172,12 @@ export default async function LitterPage({
                   <p className="font-heading text-xl font-semibold text-gray-800">{damName || 'TBC'}</p>
                 )}
                 {litter.damKcReg && !litter.dam && (
-                  <p className="text-sm text-gray-500 mt-1">KC Reg: {litter.damKcReg}</p>
+                  <dl className="space-y-1 text-sm mt-2">
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">KC Reg</dt>
+                      <dd className="font-medium text-gray-800 text-right">{litter.damKcReg}</dd>
+                    </div>
+                  </dl>
                 )}
                 {damHealthTests && damHealthTests.length > 0 && (
                   <div className="mt-4">

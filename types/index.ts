@@ -285,12 +285,10 @@ export interface Litter {
   sire?: Dog
   dam?: Dog
   sireName?: string
-  sireKcTitle?: string
   sireKcReg?: string
   sirePhoto?: SanityImage
   sireHealthTests?: HealthTest[]
   damName?: string
-  damKcTitle?: string
   damKcReg?: string
   damPhoto?: SanityImage
   damHealthTests?: HealthTest[]
