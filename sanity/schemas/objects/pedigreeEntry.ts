@@ -12,14 +12,18 @@ export const pedigreeEntry = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'kcTitle',
-      title: 'KC Title / Affix',
+      name: 'colour',
+      title: 'Colour / Coat',
       type: 'string',
-      description: 'Any KC title, prefix or affix',
     }),
     defineField({
-      name: 'kcRegistrationNumber',
-      title: 'KC Registration Number',
+      name: 'breeder',
+      title: 'Breeder',
+      type: 'string',
+    }),
+    defineField({
+      name: 'owner',
+      title: 'Owner',
       type: 'string',
     }),
     defineField({
@@ -53,11 +57,12 @@ export const pedigreeEntry = defineType({
   preview: {
     select: {
       name: 'name',
-      kcTitle: 'kcTitle',
+      colour: 'colour',
     },
-    prepare({ name, kcTitle }) {
+    prepare({ name, colour }) {
       return {
-        title: kcTitle ? `${kcTitle} ${name}` : name,
+        title: name,
+        subtitle: colour,
       }
     },
   },
