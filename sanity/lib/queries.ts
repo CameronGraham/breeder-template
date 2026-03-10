@@ -128,20 +128,20 @@ export const dogBySlugQuery = groq`
       certificateUrl
     },
     pedigree {
-      sire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      sireSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      sireSireSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      sireSireDam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      sireDam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      sireDamSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      sireDamDam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      dam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      damSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      damSireSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      damSireDam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      damDam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      damDamSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      damDamDam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} }
+      sire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      sireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      sireSireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      sireSireDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      sireDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      sireDamSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      sireDamDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      dam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      damSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      damSireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      damSireDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      damDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      damDamSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      damDamDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} }
     },
     gallery[] {
       _key,
@@ -183,32 +183,32 @@ export const litterBySlugQuery = groq`
     numberOfBitches,
     description,
     sire->{
-      _id, name, slug, mainPhoto, breed, sex,
+      _id, name, displayName, slug, mainPhoto, breed, sex,
       healthTests[] { testName, result, grade, date, certificateUrl },
-      kcRegistrationNumber, kcTitle
+      registrationNumbers
     },
     dam->{
-      _id, name, slug, mainPhoto, breed, sex,
+      _id, name, displayName, slug, mainPhoto, breed, sex,
       healthTests[] { testName, result, grade, date, certificateUrl },
-      kcRegistrationNumber, kcTitle
+      registrationNumbers
     },
     sireName, sireKcTitle, sireKcReg, sirePhoto, sireHealthTests[] { testName, result, grade, date, certificateUrl },
     damName, damKcTitle, damKcReg, damPhoto, damHealthTests[] { testName, result, grade, date, certificateUrl },
     puppyPedigree {
-      sire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      sireSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      sireSireSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      sireSireDam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      sireDam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      sireDamSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      sireDamDam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      dam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      damSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      damSireSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      damSireDam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      damDam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      damDamSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
-      damDamDam { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} }
+      sire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      sireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      sireSireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      sireSireDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      sireDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      sireDamSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      sireDamDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      dam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      damSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      damSireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      damSireDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      damDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      damDamSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
+      damDamDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} }
     },
     gallery[] { _key, image, caption, altText },
     timeline[] | order(date desc) {
