@@ -19,6 +19,8 @@ function formatDate(dateStr?: string): string {
 export default function LitterCard({ litter }: LitterCardProps) {
   const sireName = litter.sire?.name || litter.sireName
   const damName = litter.dam?.name || litter.damName
+  const sirePhoto = litter.sire?.mainPhoto || litter.sirePhoto
+  const damPhoto = litter.dam?.mainPhoto || litter.damPhoto
   const dateDisplay = litter.actualDate
     ? `Born ${formatDate(litter.actualDate)}`
     : litter.expectedDate
@@ -32,12 +34,12 @@ export default function LitterCard({ litter }: LitterCardProps) {
     >
       {/* Sire & Dam photos */}
       <div className="relative h-44 bg-gray-100 overflow-hidden">
-        {(litter.sire?.mainPhoto || litter.sirePhoto || litter.dam?.mainPhoto || litter.damPhoto) ? (
+        {(sirePhoto || damPhoto) ? (
           <div className="absolute inset-0 flex">
-            {(litter.sire?.mainPhoto || litter.sirePhoto) && (
-              <div className={`relative overflow-hidden ${(litter.dam?.mainPhoto || litter.damPhoto) ? 'w-1/2' : 'w-full'}`}>
+            {sirePhoto && (
+              <div className={`relative overflow-hidden ${damPhoto ? 'w-1/2' : 'w-full'}`}>
                 <Image
-                  src={urlForImage(litter.sire?.mainPhoto || litter.sirePhoto).width(300).height(220).url()}
+                  src={urlForImage(sirePhoto).width(300).height(220).url()}
                   alt={sireName || 'Sire'}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -48,10 +50,10 @@ export default function LitterCard({ litter }: LitterCardProps) {
                 </div>
               </div>
             )}
-            {(litter.dam?.mainPhoto || litter.damPhoto) && (
-              <div className={`relative overflow-hidden ${(litter.sire?.mainPhoto || litter.sirePhoto) ? 'w-1/2 border-l border-white/20' : 'w-full'}`}>
+            {damPhoto && (
+              <div className={`relative overflow-hidden ${sirePhoto ? 'w-1/2 border-l border-white/20' : 'w-full'}`}>
                 <Image
-                  src={urlForImage(litter.dam?.mainPhoto || litter.damPhoto).width(300).height(220).url()}
+                  src={urlForImage(damPhoto).width(300).height(220).url()}
                   alt={damName || 'Dam'}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"

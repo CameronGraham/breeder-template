@@ -21,7 +21,7 @@ export default function DogCard({ dog }: DogCardProps) {
     ? 'bg-blue-50 text-blue-700'
     : 'bg-gray-100 text-gray-600'
 
-  const status = dog.status && statusBadge[dog.status]
+  const status = dog.status && dog.status !== 'none' ? statusBadge[dog.status as keyof typeof statusBadge] : null
 
   return (
     <Link

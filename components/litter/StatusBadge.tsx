@@ -6,6 +6,10 @@ interface StatusBadgeProps {
 }
 
 const statusConfig: Record<LitterStatus, { label: string; classes: string; pulse?: boolean }> = {
+  none: {
+    label: '',
+    classes: '',
+  },
   planned: {
     label: 'Planned',
     classes: 'bg-blue-100 text-blue-800 border-blue-200',

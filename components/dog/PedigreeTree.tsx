@@ -91,7 +91,7 @@ function PedigreeNode({ entry, generation, label }: PedigreeNodeProps) {
   }
 
   return (
-    <div className={`${baseClasses}`} title={displayName}>
+    <div className={`${baseClasses}`} title={entry.name}>
       {label && (
         <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold mb-0.5">{label}</span>
       )}
