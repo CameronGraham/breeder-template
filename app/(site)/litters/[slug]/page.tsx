@@ -56,11 +56,11 @@ export default async function LitterPage({
   }
 
   const sireName = litter.sire
-    ? (litter.sire.kcTitle ? `${litter.sire.kcTitle} ${litter.sire.name}` : litter.sire.name)
+    ? (litter.sire.displayName || litter.sire.name)
     : (litter.sireKcTitle ? `${litter.sireKcTitle} ${litter.sireName}` : litter.sireName)
 
   const damName = litter.dam
-    ? (litter.dam.kcTitle ? `${litter.dam.kcTitle} ${litter.dam.name}` : litter.dam.name)
+    ? (litter.dam.displayName || litter.dam.name)
     : (litter.damKcTitle ? `${litter.damKcTitle} ${litter.damName}` : litter.damName)
 
   const sireHealthTests = litter.sire?.healthTests || litter.sireHealthTests
