@@ -3,7 +3,12 @@
     "allow": [
       "Bash(git -C \"c:/Repo/breeder-template\" add app/studio/[[...tool]]/page.tsx sanity.config.ts)",
       "Bash(git -C:*)",
-      "Bash(git -C \"c:/Repo/breeder-template\" push)"
+      "Bash(git -C \"c:/Repo/breeder-template\" push)",
+      "Bash(xargs grep:*)",
+      "Bash(grep -r \"generateStaticParams\\\\|revalidate\\\\|tags:\" /c/Repo/breeder-template/app --include=*.ts --include=*.tsx)",
+      "Bash(grep -r \"webhook\\\\|revalidate\\\\|ISR\\\\|on-demand\" /c/Repo/breeder-template --include=\"*.ts\" --include=\"*.tsx\" --include=\"*.json\" ! -path \"*/node_modules/*\" ! -path \"*/.next/*\")",
+      "Bash(xargs cat:*)",
+      "Bash(grep -r \"revalidatePath\\\\|revalidateTag\" /c/Repo/breeder-template --include=\"*.ts\" --include=\"*.tsx\" ! -path \"*/node_modules/*\" ! -path \"*/.next/*\")"
     ]
   }
 }
