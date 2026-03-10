@@ -176,7 +176,7 @@ export const dog = defineType({
       const sexLabel = sex === 'bitch' ? 'Bitch' : 'Dog'
       return {
         title: displayName || name,
-        subtitle: `${sexLabel} · ${status || 'Active'}`,
+        subtitle: status && status !== 'none' ? `${sexLabel} · ${status}` : sexLabel,
         media,
       }
     },

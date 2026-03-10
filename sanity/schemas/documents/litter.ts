@@ -195,7 +195,7 @@ export const litter = defineType({
             select: { name: 'name', sex: 'sex', status: 'status', media: 'photo' },
             prepare({ name, sex, status, media }) {
               const sexLabel = sex === 'bitch' ? 'Bitch' : sex === 'dog' ? 'Dog' : ''
-              return { title: name, subtitle: [sexLabel, status].filter(Boolean).join(' · '), media }
+              return { title: name, subtitle: [sexLabel, status !== 'none' ? status : ''].filter(Boolean).join(' · '), media }
             },
           },
         },
@@ -231,7 +231,7 @@ export const litter = defineType({
     prepare({ title, status, sirePhoto }) {
       return {
         title,
-        subtitle: status,
+        subtitle: status !== 'none' ? status : undefined,
         media: sirePhoto,
       }
     },
