@@ -9,7 +9,8 @@ const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!
 
 export default defineConfig({
   name: 'breeder-template',
-  title: 'Breeder Website',
+  title: 'Gitdoon Beardies',
+  basePath: "/studio",
   projectId,
   dataset,
   plugins: [
