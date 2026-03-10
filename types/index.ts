@@ -49,8 +49,9 @@ export interface PortableTextBlock {
 
 export interface PedigreeEntry {
   name: string
-  kcTitle?: string
-  kcRegistrationNumber?: string
+  colour?: string
+  breeder?: string
+  owner?: string
   linkType: 'none' | 'internal' | 'external'
   internalDog?: {
     name: string
@@ -244,8 +245,8 @@ export interface Dog {
   breed?: string
   dateOfBirth?: string
   colour?: string
-  kcRegistrationNumber?: string
-  kcTitle?: string
+  registrationNumbers?: { label: string; value: string }[]
+  displayName?: string
   status?: 'none' | 'active' | 'retired' | 'deceased'
   mainPhoto: SanityImage
   blurb?: PortableTextBlock[]

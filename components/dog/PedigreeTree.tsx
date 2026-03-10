@@ -39,16 +39,17 @@ function PedigreeNode({ entry, generation, label }: PedigreeNodeProps) {
     )
   }
 
-  const displayName = entry.kcTitle ? `${entry.kcTitle} ${entry.name}` : entry.name
-
   const nameContent = (
     <>
-      {entry.kcTitle && (
-        <span className="text-[10px] text-gray-500 font-medium block leading-tight">{entry.kcTitle}</span>
-      )}
       <span className={`font-semibold text-gray-900 ${textSize} leading-tight block`}>{entry.name}</span>
-      {entry.kcRegistrationNumber && (
-        <span className="text-[10px] text-gray-400 block mt-0.5">{entry.kcRegistrationNumber}</span>
+      {entry.colour && (
+        <span className="text-[10px] text-gray-400 block mt-0.5">{entry.colour}</span>
+      )}
+      {entry.breeder && (
+        <span className="text-[10px] text-gray-400 block">Breeder: {entry.breeder}</span>
+      )}
+      {entry.owner && (
+        <span className="text-[10px] text-gray-400 block">Owner: {entry.owner}</span>
       )}
     </>
   )
@@ -60,7 +61,7 @@ function PedigreeNode({ entry, generation, label }: PedigreeNodeProps) {
       <Link
         href={`/dogs/${entry.internalDog.slug.current}`}
         className={`${baseClasses} cursor-pointer group`}
-        title={displayName}
+        title={entry.name}
       >
         {label && (
           <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold mb-0.5">{label}</span>
@@ -78,7 +79,7 @@ function PedigreeNode({ entry, generation, label }: PedigreeNodeProps) {
         target="_blank"
         rel="noopener noreferrer"
         className={`${baseClasses} cursor-pointer group`}
-        title={displayName}
+        title={entry.name}
       >
         {label && (
           <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold mb-0.5">{label}</span>
@@ -102,10 +103,6 @@ function PedigreeNode({ entry, generation, label }: PedigreeNodeProps) {
 // Mobile list view for a single ancestor line
 function MobileAncestorRow({ label, entry }: { label: string; entry?: PedigreeEntry }) {
   if (!entry) return null
-  const displayName = entry.kcTitle ? `${entry.kcTitle} ${entry.name}` : entry.name
-  const content = (
-    <span className="font-medium text-gray-900 text-sm">{displayName}</span>
-  )
 
   return (
     <div className="flex items-start gap-2 py-1.5">
@@ -113,18 +110,18 @@ function MobileAncestorRow({ label, entry }: { label: string; entry?: PedigreeEn
       <div>
         {entry.linkType === 'internal' && entry.internalDog?.slug?.current ? (
           <Link href={`/dogs/${entry.internalDog.slug.current}`} className="text-primary-600 hover:underline text-sm font-medium">
-            {displayName}
+            {entry.name}
           </Link>
         ) : entry.linkType === 'external' && entry.externalUrl ? (
           <a href={entry.externalUrl} target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline text-sm font-medium">
-            {displayName} ↗
+            {entry.name} ↗
           </a>
         ) : (
-          content
+          <span className="font-medium text-gray-900 text-sm">{entry.name}</span>
         )}
-        {entry.kcRegistrationNumber && (
-          <p className="text-xs text-gray-400">{entry.kcRegistrationNumber}</p>
-        )}
+        {entry.colour && <p className="text-xs text-gray-400">{entry.colour}</p>}
+        {entry.breeder && <p className="text-xs text-gray-400">Breeder: {entry.breeder}</p>}
+        {entry.owner && <p className="text-xs text-gray-400">Owner: {entry.owner}</p>}
       </div>
     </div>
   )
