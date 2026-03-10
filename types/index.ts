@@ -267,6 +267,8 @@ export interface LitterSummary {
   dam?: { name: string; mainPhoto?: SanityImage }
   sireName?: string
   damName?: string
+  sirePhoto?: SanityImage
+  damPhoto?: SanityImage
 }
 
 export interface Litter {
@@ -285,10 +287,12 @@ export interface Litter {
   sireName?: string
   sireKcTitle?: string
   sireKcReg?: string
+  sirePhoto?: SanityImage
   sireHealthTests?: HealthTest[]
   damName?: string
   damKcTitle?: string
   damKcReg?: string
+  damPhoto?: SanityImage
   damHealthTests?: HealthTest[]
   puppyPedigree?: PedigreeTree
   gallery?: GalleryImage[]
