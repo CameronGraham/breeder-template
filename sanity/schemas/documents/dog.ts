@@ -131,10 +131,10 @@ export const dog = defineType({
         {
           type: 'object',
           fields: [
-            { name: 'showName', title: 'Show Name', type: 'string', validation: (Rule: { required: () => unknown }) => Rule.required() },
-            { name: 'date', title: 'Date', type: 'date' },
-            { name: 'result', title: 'Result / Award', type: 'string', validation: (Rule: { required: () => unknown }) => Rule.required() },
-            { name: 'judge', title: 'Judge', type: 'string' },
+            defineField({ name: 'showName', title: 'Show Name', type: 'string', validation: (Rule) => Rule.required() }),
+            defineField({ name: 'date', title: 'Date', type: 'date' }),
+            defineField({ name: 'result', title: 'Result / Award', type: 'string', validation: (Rule) => Rule.required() }),
+            defineField({ name: 'judge', title: 'Judge', type: 'string' }),
           ],
           preview: {
             select: { showName: 'showName', result: 'result', date: 'date' },
