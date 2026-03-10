@@ -126,7 +126,7 @@ export const litter = defineType({
           ],
           preview: {
             select: { label: 'label', value: 'value' },
-            prepare({ label, value }: { label: string; value: string }) {
+            prepare({ label, value }) {
               return { title: label, subtitle: value }
             },
           },
@@ -169,7 +169,7 @@ export const litter = defineType({
           ],
           preview: {
             select: { label: 'label', value: 'value' },
-            prepare({ label, value }: { label: string; value: string }) {
+            prepare({ label, value }) {
               return { title: label, subtitle: value }
             },
           },
