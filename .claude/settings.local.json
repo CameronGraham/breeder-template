@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"c:/Repo/breeder-template\" add app/studio/[[...tool]]/page.tsx sanity.config.ts)",
+      "Bash(git -C:*)",
+      "Bash(git -C \"c:/Repo/breeder-template\" push)"
+    ]
+  }
+}
