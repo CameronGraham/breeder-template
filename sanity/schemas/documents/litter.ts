@@ -112,14 +112,26 @@ export const litter = defineType({
       description: 'Used if the sire is not on this site',
     }),
     defineField({
-      name: 'sireKcTitle',
-      title: "Sire's KC Title",
-      type: 'string',
-    }),
-    defineField({
-      name: 'sireKcReg',
-      title: "Sire's KC Registration Number",
-      type: 'string',
+      name: 'sireRegistrationNumbers',
+      title: "Sire's Registration Numbers",
+      type: 'array',
+      description: 'Add any registration numbers with their label (e.g. "KC Registration Number", "WBCS Number")',
+      of: [
+        {
+          type: 'object',
+          name: 'registrationNumber',
+          fields: [
+            defineField({ name: 'label', title: 'Label', type: 'string', validation: (Rule) => Rule.required() }),
+            defineField({ name: 'value', title: 'Number', type: 'string', validation: (Rule) => Rule.required() }),
+          ],
+          preview: {
+            select: { label: 'label', value: 'value' },
+            prepare({ label, value }: { label: string; value: string }) {
+              return { title: label, subtitle: value }
+            },
+          },
+        },
+      ],
     }),
     defineField({
       name: 'sirePhoto',
@@ -143,14 +155,26 @@ export const litter = defineType({
       description: 'Used if the dam is not on this site',
     }),
     defineField({
-      name: 'damKcTitle',
-      title: "Dam's KC Title",
-      type: 'string',
-    }),
-    defineField({
-      name: 'damKcReg',
-      title: "Dam's KC Registration Number",
-      type: 'string',
+      name: 'damRegistrationNumbers',
+      title: "Dam's Registration Numbers",
+      type: 'array',
+      description: 'Add any registration numbers with their label (e.g. "KC Registration Number", "WBCS Number")',
+      of: [
+        {
+          type: 'object',
+          name: 'registrationNumber',
+          fields: [
+            defineField({ name: 'label', title: 'Label', type: 'string', validation: (Rule) => Rule.required() }),
+            defineField({ name: 'value', title: 'Number', type: 'string', validation: (Rule) => Rule.required() }),
+          ],
+          preview: {
+            select: { label: 'label', value: 'value' },
+            prepare({ label, value }: { label: string; value: string }) {
+              return { title: label, subtitle: value }
+            },
+          },
+        },
+      ],
     }),
     defineField({
       name: 'damPhoto',

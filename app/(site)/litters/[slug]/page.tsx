@@ -129,12 +129,14 @@ export default async function LitterPage({
                 ) : (
                   <p className="font-heading text-xl font-semibold text-gray-800">{sireName || 'TBC'}</p>
                 )}
-                {litter.sireKcReg && !litter.sire && (
+                {litter.sireRegistrationNumbers && litter.sireRegistrationNumbers.length > 0 && !litter.sire && (
                   <dl className="space-y-1 text-sm mt-2">
-                    <div className="flex justify-between">
-                      <dt className="text-gray-500">KC Reg</dt>
-                      <dd className="font-medium text-gray-800 text-right">{litter.sireKcReg}</dd>
-                    </div>
+                    {litter.sireRegistrationNumbers.map((reg) => (
+                      <div key={reg.label} className="flex justify-between">
+                        <dt className="text-gray-500">{reg.label}</dt>
+                        <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
+                      </div>
+                    ))}
                   </dl>
                 )}
                 {sireHealthTests && sireHealthTests.length > 0 && (
@@ -171,12 +173,14 @@ export default async function LitterPage({
                 ) : (
                   <p className="font-heading text-xl font-semibold text-gray-800">{damName || 'TBC'}</p>
                 )}
-                {litter.damKcReg && !litter.dam && (
+                {litter.damRegistrationNumbers && litter.damRegistrationNumbers.length > 0 && !litter.dam && (
                   <dl className="space-y-1 text-sm mt-2">
-                    <div className="flex justify-between">
-                      <dt className="text-gray-500">KC Reg</dt>
-                      <dd className="font-medium text-gray-800 text-right">{litter.damKcReg}</dd>
-                    </div>
+                    {litter.damRegistrationNumbers.map((reg) => (
+                      <div key={reg.label} className="flex justify-between">
+                        <dt className="text-gray-500">{reg.label}</dt>
+                        <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
+                      </div>
+                    ))}
                   </dl>
                 )}
                 {damHealthTests && damHealthTests.length > 0 && (
