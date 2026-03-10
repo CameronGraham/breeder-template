@@ -58,6 +58,12 @@ export const dog = defineType({
       description: 'Any KC title, prefix or affix (e.g. Ch., Sh Ch., a kennel affix)',
     }),
     defineField({
+      name: 'suffix',
+      title: 'Suffix',
+      type: 'string',
+      description: 'Any suffix that follows the name (e.g. JW, ShCM)',
+    }),
+    defineField({
       name: 'status',
       title: 'Status',
       type: 'string',
