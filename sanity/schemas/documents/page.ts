@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity'
+import type { Rule } from 'sanity'
 
 export const page = defineType({
   name: 'page',
@@ -120,7 +121,7 @@ export const page = defineType({
               title: 'Image',
               type: 'image',
               options: { hotspot: true },
-              validation: (Rule: { required: () => unknown }) => Rule.required(),
+              validation: (Rule: Rule) => Rule.required(),
             },
             { name: 'caption', title: 'Caption', type: 'string' },
             { name: 'altText', title: 'Alt Text', type: 'string' },
@@ -221,7 +222,7 @@ export const page = defineType({
               title: 'Number of Posts',
               type: 'number',
               initialValue: 3,
-              validation: (Rule: { min: (n: number) => { max: (n: number) => unknown } }) => Rule.min(1).max(12),
+              validation: (Rule: Rule) => Rule.min(1).max(12),
             },
           ],
           preview: {
