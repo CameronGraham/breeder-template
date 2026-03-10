@@ -65,6 +65,8 @@ export default async function LitterPage({
 
   const sireHealthTests = litter.sire?.healthTests || litter.sireHealthTests
   const damHealthTests = litter.dam?.healthTests || litter.damHealthTests
+  const sirePhoto = litter.sire?.mainPhoto || litter.sirePhoto
+  const damPhoto = litter.dam?.mainPhoto || litter.damPhoto
 
   return (
     <article>
@@ -104,10 +106,10 @@ export default async function LitterPage({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Sire */}
             <div className="bg-gray-50 rounded-xl overflow-hidden">
-              {(litter.sire?.mainPhoto || litter.sirePhoto) && (
+              {sirePhoto && (
                 <div className="relative h-48">
                   <Image
-                    src={urlForImage(litter.sire?.mainPhoto || litter.sirePhoto).width(600).height(300).url()}
+                    src={urlForImage(sirePhoto).width(600).height(300).url()}
                     alt={sireName || 'Sire'}
                     fill
                     className="object-cover"
@@ -130,9 +132,6 @@ export default async function LitterPage({
                 {litter.sireKcReg && !litter.sire && (
                   <p className="text-sm text-gray-500 mt-1">KC Reg: {litter.sireKcReg}</p>
                 )}
-                {litter.sire?.kcRegistrationNumber && (
-                  <p className="text-sm text-gray-500 mt-1">KC Reg: {litter.sire.kcRegistrationNumber}</p>
-                )}
                 {sireHealthTests && sireHealthTests.length > 0 && (
                   <div className="mt-4">
                     <h4 className="text-sm font-semibold text-gray-600 mb-2">Health Tests</h4>
@@ -144,10 +143,10 @@ export default async function LitterPage({
 
             {/* Dam */}
             <div className="bg-gray-50 rounded-xl overflow-hidden">
-              {(litter.dam?.mainPhoto || litter.damPhoto) && (
+              {damPhoto && (
                 <div className="relative h-48">
                   <Image
-                    src={urlForImage(litter.dam?.mainPhoto || litter.damPhoto).width(600).height(300).url()}
+                    src={urlForImage(damPhoto).width(600).height(300).url()}
                     alt={damName || 'Dam'}
                     fill
                     className="object-cover"
@@ -169,9 +168,6 @@ export default async function LitterPage({
                 )}
                 {litter.damKcReg && !litter.dam && (
                   <p className="text-sm text-gray-500 mt-1">KC Reg: {litter.damKcReg}</p>
-                )}
-                {litter.dam?.kcRegistrationNumber && (
-                  <p className="text-sm text-gray-500 mt-1">KC Reg: {litter.dam.kcRegistrationNumber}</p>
                 )}
                 {damHealthTests && damHealthTests.length > 0 && (
                   <div className="mt-4">
