@@ -82,7 +82,7 @@ export default async function DogPage({
             <h1 className="font-heading text-3xl md:text-5xl font-bold text-white">
               {displayName}
             </h1>
-            {dog.status && (
+            {dog.status && dog.status !== 'none' && (
               <span className={`text-sm font-semibold px-3 py-1 rounded-full mb-1 ${statusColors[dog.status] || 'bg-gray-100 text-gray-700'}`}>
                 {dog.status.charAt(0).toUpperCase() + dog.status.slice(1)}
               </span>
@@ -196,13 +196,13 @@ export default async function DogPage({
                     <dd className="font-medium text-gray-800">{dog.colour}</dd>
                   </div>
                 )}
-                {dog.kcRegistrationNumber && (
-                  <div className="flex justify-between">
-                    <dt className="text-gray-500">KC Reg</dt>
-                    <dd className="font-medium text-gray-800 text-right">{dog.kcRegistrationNumber}</dd>
+                {dog.registrationNumbers?.map((reg: { label: string; value: string }) => (
+                  <div key={reg.label} className="flex justify-between">
+                    <dt className="text-gray-500">{reg.label}</dt>
+                    <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
                   </div>
-                )}
-                {dog.status && (
+                ))}
+                {dog.status && dog.status !== 'none' && (
                   <div className="flex justify-between">
                     <dt className="text-gray-500">Status</dt>
                     <dd>

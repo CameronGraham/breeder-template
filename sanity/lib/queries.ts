@@ -47,7 +47,7 @@ export const pageBySlugQuery = groq`
       _type == "featuredLitters" => {
         ...,
         litters[]-> {
-          _id, title, slug, status, expectedDate, sire->{name, mainPhoto}, dam->{name, mainPhoto}
+          _id, title, slug, status, expectedDate, actualDate, sire->{name, mainPhoto}, dam->{name, mainPhoto}
         }
       },
       _type == "latestNews" => {
@@ -80,7 +80,7 @@ export const homepageQuery = groq`
       _type == "featuredLitters" => {
         ...,
         litters[]-> {
-          _id, title, slug, status, expectedDate, sire->{name, mainPhoto}, dam->{name, mainPhoto}
+          _id, title, slug, status, expectedDate, actualDate, sire->{name, mainPhoto}, dam->{name, mainPhoto}
         }
       },
       _type == "latestNews" => {
@@ -115,8 +115,8 @@ export const dogBySlugQuery = groq`
     breed,
     dateOfBirth,
     colour,
-    kcRegistrationNumber,
-    kcTitle,
+    registrationNumbers[]{ label, value },
+    displayName,
     status,
     mainPhoto,
     blurb,

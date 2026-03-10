@@ -30,6 +30,8 @@ const statusConfig: Record<LitterStatus, { label: string; classes: string; pulse
 }
 
 export default function StatusBadge({ status, size = 'md' }: StatusBadgeProps) {
+  if (!status || status === 'none') return null
+
   const config = statusConfig[status] || {
     label: status,
     classes: 'bg-gray-100 text-gray-600 border-gray-200',
