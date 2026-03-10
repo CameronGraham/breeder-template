@@ -9,8 +9,14 @@ export const dog = defineType({
       name: 'name',
       title: 'Name',
       type: 'string',
-      description: "The dog's name (without titles/affixes)",
+      description: "The dog's call name / pet name (e.g. Giggle)",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'displayName',
+      title: 'Display Name',
+      type: 'string',
+      description: "Full registered name as it should appear publicly (e.g. Gitdoon Gee Us a Giggle)",
     }),
     defineField({
       name: 'slug',
@@ -50,18 +56,6 @@ export const dog = defineType({
       name: 'kcRegistrationNumber',
       title: 'KC Registration Number',
       type: 'string',
-    }),
-    defineField({
-      name: 'kcTitle',
-      title: 'KC Title / Affix',
-      type: 'string',
-      description: 'Any KC title, prefix or affix (e.g. Ch., Sh Ch., a kennel affix)',
-    }),
-    defineField({
-      name: 'suffix',
-      title: 'Suffix',
-      type: 'string',
-      description: 'Any suffix that follows the name (e.g. JW, ShCM)',
     }),
     defineField({
       name: 'status',
@@ -155,16 +149,15 @@ export const dog = defineType({
   preview: {
     select: {
       name: 'name',
-      kcTitle: 'kcTitle',
+      displayName: 'displayName',
       sex: 'sex',
       status: 'status',
       media: 'mainPhoto',
     },
-    prepare({ name, kcTitle, sex, status, media }) {
-      const displayName = kcTitle ? `${kcTitle} ${name}` : name
+    prepare({ name, displayName, sex, status, media }) {
       const sexLabel = sex === 'bitch' ? 'Bitch' : 'Dog'
       return {
-        title: displayName,
+        title: displayName || name,
         subtitle: `${sexLabel} · ${status || 'Active'}`,
         media,
       }
