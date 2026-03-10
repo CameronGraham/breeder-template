@@ -225,7 +225,7 @@ export interface DogSummary {
   breed?: string
   sex?: 'dog' | 'bitch'
   mainPhoto: SanityImage
-  status?: 'active' | 'retired' | 'deceased'
+  status?: 'none' | 'active' | 'retired' | 'deceased'
   summary?: PortableTextBlock
 }
 
@@ -246,7 +246,7 @@ export interface Dog {
   colour?: string
   kcRegistrationNumber?: string
   kcTitle?: string
-  status?: 'active' | 'retired' | 'deceased'
+  status?: 'none' | 'active' | 'retired' | 'deceased'
   mainPhoto: SanityImage
   blurb?: PortableTextBlock[]
   healthTests?: HealthTest[]
@@ -259,7 +259,7 @@ export interface LitterSummary {
   _id: string
   title: string
   slug: SanitySlug
-  status: 'planned' | 'expecting' | 'born' | 'available' | 'all placed'
+  status: 'none' | 'planned' | 'expecting' | 'born' | 'available' | 'all placed'
   expectedDate?: string
   actualDate?: string
   sire?: { name: string; mainPhoto?: SanityImage }
@@ -272,7 +272,7 @@ export interface Litter {
   _id: string
   title: string
   slug: SanitySlug
-  status: 'planned' | 'expecting' | 'born' | 'available' | 'all placed'
+  status: 'none' | 'planned' | 'expecting' | 'born' | 'available' | 'all placed'
   expectedDate?: string
   actualDate?: string
   numberOfPuppies?: number

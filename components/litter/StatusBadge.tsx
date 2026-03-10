@@ -1,4 +1,4 @@
-type LitterStatus = 'planned' | 'expecting' | 'born' | 'available' | 'all placed'
+type LitterStatus = 'none' | 'planned' | 'expecting' | 'born' | 'available' | 'all placed'
 
 interface StatusBadgeProps {
   status: LitterStatus
