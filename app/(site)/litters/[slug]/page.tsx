@@ -136,12 +136,6 @@ export default async function LitterPage({
                       <dd className="font-medium text-gray-800 text-right">{litter.sire.breed}</dd>
                     </div>
                   )}
-                  {litter.sire?.sex && (
-                    <div className="flex justify-between">
-                      <dt className="text-gray-500">Sex</dt>
-                      <dd className="font-medium text-gray-800">{litter.sire.sex === 'dog' ? 'Dog' : 'Bitch'}</dd>
-                    </div>
-                  )}
                   {litter.sire?.colour && (
                     <div className="flex justify-between">
                       <dt className="text-gray-500">Colour</dt>
@@ -224,12 +218,6 @@ export default async function LitterPage({
                     <div className="flex justify-between">
                       <dt className="text-gray-500">Breed</dt>
                       <dd className="font-medium text-gray-800 text-right">{litter.dam.breed}</dd>
-                    </div>
-                  )}
-                  {litter.dam?.sex && (
-                    <div className="flex justify-between">
-                      <dt className="text-gray-500">Sex</dt>
-                      <dd className="font-medium text-gray-800">{litter.dam.sex === 'dog' ? 'Dog' : 'Bitch'}</dd>
                     </div>
                   )}
                   {litter.dam?.colour && (
