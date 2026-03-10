@@ -129,16 +129,44 @@ export default async function LitterPage({
                 ) : (
                   <p className="font-heading text-xl font-semibold text-gray-800">{sireName || 'TBC'}</p>
                 )}
-                {litter.sireRegistrationNumbers && litter.sireRegistrationNumbers.length > 0 && !litter.sire && (
-                  <dl className="space-y-1 text-sm mt-2">
-                    {litter.sireRegistrationNumbers.map((reg) => (
-                      <div key={reg.label} className="flex justify-between">
-                        <dt className="text-gray-500">{reg.label}</dt>
-                        <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                )}
+                <dl className="space-y-1 text-sm mt-3">
+                  {litter.sire?.breed && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Breed</dt>
+                      <dd className="font-medium text-gray-800 text-right">{litter.sire.breed}</dd>
+                    </div>
+                  )}
+                  {litter.sire?.sex && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Sex</dt>
+                      <dd className="font-medium text-gray-800">{litter.sire.sex === 'dog' ? 'Dog' : 'Bitch'}</dd>
+                    </div>
+                  )}
+                  {litter.sire?.colour && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Colour</dt>
+                      <dd className="font-medium text-gray-800 text-right">{litter.sire.colour}</dd>
+                    </div>
+                  )}
+                  {litter.sire?.dateOfBirth && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Date of Birth</dt>
+                      <dd className="font-medium text-gray-800">{formatDate(litter.sire.dateOfBirth)}</dd>
+                    </div>
+                  )}
+                  {litter.sire?.registrationNumbers?.map((reg) => (
+                    <div key={reg.label} className="flex justify-between">
+                      <dt className="text-gray-500">{reg.label}</dt>
+                      <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
+                    </div>
+                  ))}
+                  {litter.sireRegistrationNumbers?.map((reg) => (
+                    <div key={reg.label} className="flex justify-between">
+                      <dt className="text-gray-500">{reg.label}</dt>
+                      <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
+                    </div>
+                  ))}
+                </dl>
                 {sireHealthTests && sireHealthTests.length > 0 && (
                   <div className="mt-4">
                     <h4 className="text-sm font-semibold text-gray-600 mb-2">Health Tests</h4>
@@ -173,16 +201,44 @@ export default async function LitterPage({
                 ) : (
                   <p className="font-heading text-xl font-semibold text-gray-800">{damName || 'TBC'}</p>
                 )}
-                {litter.damRegistrationNumbers && litter.damRegistrationNumbers.length > 0 && !litter.dam && (
-                  <dl className="space-y-1 text-sm mt-2">
-                    {litter.damRegistrationNumbers.map((reg) => (
-                      <div key={reg.label} className="flex justify-between">
-                        <dt className="text-gray-500">{reg.label}</dt>
-                        <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                )}
+                <dl className="space-y-1 text-sm mt-3">
+                  {litter.dam?.breed && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Breed</dt>
+                      <dd className="font-medium text-gray-800 text-right">{litter.dam.breed}</dd>
+                    </div>
+                  )}
+                  {litter.dam?.sex && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Sex</dt>
+                      <dd className="font-medium text-gray-800">{litter.dam.sex === 'dog' ? 'Dog' : 'Bitch'}</dd>
+                    </div>
+                  )}
+                  {litter.dam?.colour && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Colour</dt>
+                      <dd className="font-medium text-gray-800 text-right">{litter.dam.colour}</dd>
+                    </div>
+                  )}
+                  {litter.dam?.dateOfBirth && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Date of Birth</dt>
+                      <dd className="font-medium text-gray-800">{formatDate(litter.dam.dateOfBirth)}</dd>
+                    </div>
+                  )}
+                  {litter.dam?.registrationNumbers?.map((reg) => (
+                    <div key={reg.label} className="flex justify-between">
+                      <dt className="text-gray-500">{reg.label}</dt>
+                      <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
+                    </div>
+                  ))}
+                  {litter.damRegistrationNumbers?.map((reg) => (
+                    <div key={reg.label} className="flex justify-between">
+                      <dt className="text-gray-500">{reg.label}</dt>
+                      <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
+                    </div>
+                  ))}
+                </dl>
                 {damHealthTests && damHealthTests.length > 0 && (
                   <div className="mt-4">
                     <h4 className="text-sm font-semibold text-gray-600 mb-2">Health Tests</h4>

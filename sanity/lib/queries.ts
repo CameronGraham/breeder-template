@@ -183,14 +183,14 @@ export const litterBySlugQuery = groq`
     numberOfBitches,
     description,
     sire->{
-      _id, name, displayName, slug, mainPhoto, breed, sex,
+      _id, name, displayName, slug, mainPhoto, breed, sex, colour, dateOfBirth, status,
       healthTests[] { testName, result, grade, date, certificateUrl },
-      registrationNumbers
+      registrationNumbers[]{ label, value }
     },
     dam->{
-      _id, name, displayName, slug, mainPhoto, breed, sex,
+      _id, name, displayName, slug, mainPhoto, breed, sex, colour, dateOfBirth, status,
       healthTests[] { testName, result, grade, date, certificateUrl },
-      registrationNumbers
+      registrationNumbers[]{ label, value }
     },
     sireName, sireRegistrationNumbers[]{ label, value }, sirePhoto, sireHealthTests[] { testName, result, grade, date, certificateUrl },
     damName, damRegistrationNumbers[]{ label, value }, damPhoto, damHealthTests[] { testName, result, grade, date, certificateUrl },
