@@ -104,10 +104,10 @@ export default async function LitterPage({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Sire */}
             <div className="bg-gray-50 rounded-xl overflow-hidden">
-              {litter.sire?.mainPhoto && (
+              {(litter.sire?.mainPhoto || litter.sirePhoto) && (
                 <div className="relative h-48">
                   <Image
-                    src={urlForImage(litter.sire.mainPhoto).width(600).height(300).url()}
+                    src={urlForImage(litter.sire?.mainPhoto || litter.sirePhoto).width(600).height(300).url()}
                     alt={sireName || 'Sire'}
                     fill
                     className="object-cover"
@@ -144,10 +144,10 @@ export default async function LitterPage({
 
             {/* Dam */}
             <div className="bg-gray-50 rounded-xl overflow-hidden">
-              {litter.dam?.mainPhoto && (
+              {(litter.dam?.mainPhoto || litter.damPhoto) && (
                 <div className="relative h-48">
                   <Image
-                    src={urlForImage(litter.dam.mainPhoto).width(600).height(300).url()}
+                    src={urlForImage(litter.dam?.mainPhoto || litter.damPhoto).width(600).height(300).url()}
                     alt={damName || 'Dam'}
                     fill
                     className="object-cover"

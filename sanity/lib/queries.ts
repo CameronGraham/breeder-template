@@ -47,7 +47,7 @@ export const pageBySlugQuery = groq`
       _type == "featuredLitters" => {
         ...,
         litters[]-> {
-          _id, title, slug, status, expectedDate, actualDate, sire->{name, mainPhoto}, dam->{name, mainPhoto}
+          _id, title, slug, status, expectedDate, actualDate, sirePhoto, damPhoto, sire->{name, mainPhoto}, dam->{name, mainPhoto}
         }
       },
       _type == "latestNews" => {
@@ -80,7 +80,7 @@ export const homepageQuery = groq`
       _type == "featuredLitters" => {
         ...,
         litters[]-> {
-          _id, title, slug, status, expectedDate, actualDate, sire->{name, mainPhoto}, dam->{name, mainPhoto}
+          _id, title, slug, status, expectedDate, actualDate, sirePhoto, damPhoto, sire->{name, mainPhoto}, dam->{name, mainPhoto}
         }
       },
       _type == "latestNews" => {
@@ -165,7 +165,7 @@ export const allLittersQuery = groq`
     _id, title, slug, status, expectedDate, actualDate,
     sire->{name, mainPhoto},
     dam->{name, mainPhoto},
-    sireName, damName,
+    sireName, damName, sirePhoto, damPhoto,
     description[0]
   }
 `
@@ -192,8 +192,8 @@ export const litterBySlugQuery = groq`
       healthTests[] { testName, result, grade, date, certificateUrl },
       kcRegistrationNumber, kcTitle
     },
-    sireName, sireKcTitle, sireKcReg, sireHealthTests[] { testName, result, grade, date, certificateUrl },
-    damName, damKcTitle, damKcReg, damHealthTests[] { testName, result, grade, date, certificateUrl },
+    sireName, sireKcTitle, sireKcReg, sirePhoto, sireHealthTests[] { testName, result, grade, date, certificateUrl },
+    damName, damKcTitle, damKcReg, damPhoto, damHealthTests[] { testName, result, grade, date, certificateUrl },
     puppyPedigree {
       sire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
       sireSire { name, kcTitle, kcRegistrationNumber, linkType, externalUrl, internalDog->{name, slug} },
