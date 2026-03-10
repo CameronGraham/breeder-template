@@ -160,6 +160,24 @@ export default async function LitterPage({
                       <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
                     </div>
                   ))}
+                  {litter.sireBreed && !litter.sire && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Breed</dt>
+                      <dd className="font-medium text-gray-800 text-right">{litter.sireBreed}</dd>
+                    </div>
+                  )}
+                  {litter.sireColour && !litter.sire && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Colour</dt>
+                      <dd className="font-medium text-gray-800 text-right">{litter.sireColour}</dd>
+                    </div>
+                  )}
+                  {litter.sireDateOfBirth && !litter.sire && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Date of Birth</dt>
+                      <dd className="font-medium text-gray-800">{formatDate(litter.sireDateOfBirth)}</dd>
+                    </div>
+                  )}
                   {litter.sireRegistrationNumbers?.map((reg) => (
                     <div key={reg.label} className="flex justify-between">
                       <dt className="text-gray-500">{reg.label}</dt>
@@ -232,6 +250,24 @@ export default async function LitterPage({
                       <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
                     </div>
                   ))}
+                  {litter.damBreed && !litter.dam && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Breed</dt>
+                      <dd className="font-medium text-gray-800 text-right">{litter.damBreed}</dd>
+                    </div>
+                  )}
+                  {litter.damColour && !litter.dam && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Colour</dt>
+                      <dd className="font-medium text-gray-800 text-right">{litter.damColour}</dd>
+                    </div>
+                  )}
+                  {litter.damDateOfBirth && !litter.dam && (
+                    <div className="flex justify-between">
+                      <dt className="text-gray-500">Date of Birth</dt>
+                      <dd className="font-medium text-gray-800">{formatDate(litter.damDateOfBirth)}</dd>
+                    </div>
+                  )}
                   {litter.damRegistrationNumbers?.map((reg) => (
                     <div key={reg.label} className="flex justify-between">
                       <dt className="text-gray-500">{reg.label}</dt>

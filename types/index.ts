@@ -296,10 +296,16 @@ export interface Litter {
   sire?: Dog
   dam?: Dog
   sireName?: string
+  sireBreed?: string
+  sireColour?: string
+  sireDateOfBirth?: string
   sireRegistrationNumbers?: { label: string; value: string }[]
   sirePhoto?: SanityImage
   sireHealthTests?: HealthTest[]
   damName?: string
+  damBreed?: string
+  damColour?: string
+  damDateOfBirth?: string
   damRegistrationNumbers?: { label: string; value: string }[]
   damPhoto?: SanityImage
   damHealthTests?: HealthTest[]

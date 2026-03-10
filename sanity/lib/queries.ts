@@ -192,8 +192,8 @@ export const litterBySlugQuery = groq`
       healthTests[] { testName, result, grade, date, certificateUrl },
       registrationNumbers[]{ label, value }
     },
-    sireName, sireRegistrationNumbers[]{ label, value }, sirePhoto, sireHealthTests[] { testName, result, grade, date, certificateUrl },
-    damName, damRegistrationNumbers[]{ label, value }, damPhoto, damHealthTests[] { testName, result, grade, date, certificateUrl },
+    sireName, sireBreed, sireColour, sireDateOfBirth, sireRegistrationNumbers[]{ label, value }, sirePhoto, sireHealthTests[] { testName, result, grade, date, certificateUrl },
+    damName, damBreed, damColour, damDateOfBirth, damRegistrationNumbers[]{ label, value }, damPhoto, damHealthTests[] { testName, result, grade, date, certificateUrl },
     puppyPedigree {
       sire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
       sireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },

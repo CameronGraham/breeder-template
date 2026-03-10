@@ -111,6 +111,9 @@ export const litter = defineType({
       type: 'string',
       description: 'Used if the sire is not on this site',
     }),
+    defineField({ name: 'sireBreed', title: 'Sire Breed (external)', type: 'string' }),
+    defineField({ name: 'sireColour', title: 'Sire Colour (external)', type: 'string' }),
+    defineField({ name: 'sireDateOfBirth', title: 'Sire Date of Birth (external)', type: 'date' }),
     defineField({
       name: 'sireRegistrationNumbers',
       title: "Sire's Registration Numbers",
@@ -154,6 +157,9 @@ export const litter = defineType({
       type: 'string',
       description: 'Used if the dam is not on this site',
     }),
+    defineField({ name: 'damBreed', title: 'Dam Breed (external)', type: 'string' }),
+    defineField({ name: 'damColour', title: 'Dam Colour (external)', type: 'string' }),
+    defineField({ name: 'damDateOfBirth', title: 'Dam Date of Birth (external)', type: 'date' }),
     defineField({
       name: 'damRegistrationNumbers',
       title: "Dam's Registration Numbers",
