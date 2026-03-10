@@ -210,6 +210,10 @@ export const litterBySlugQuery = groq`
       damDamSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
       damDamDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} }
     },
+    puppies[] {
+      _key, name, sex, colour, status, photo, notes,
+      dogProfile->{ name, slug }
+    },
     gallery[] { _key, image, caption, altText },
     timeline[] | order(date desc) {
       _key, date, title, content, photos[] { _key, image, caption, altText }

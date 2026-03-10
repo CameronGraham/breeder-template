@@ -256,6 +256,17 @@ export interface Dog {
   showResults?: ShowResult[]
 }
 
+export interface Puppy {
+  _key: string
+  name: string
+  sex?: 'dog' | 'bitch'
+  colour?: string
+  status?: 'none' | 'available' | 'reserved' | 'placed' | 'kept'
+  photo?: SanityImage
+  notes?: string
+  dogProfile?: { name: string; slug: SanitySlug }
+}
+
 export interface LitterSummary {
   _id: string
   title: string
@@ -292,6 +303,7 @@ export interface Litter {
   damRegistrationNumbers?: { label: string; value: string }[]
   damPhoto?: SanityImage
   damHealthTests?: HealthTest[]
+  puppies?: Puppy[]
   puppyPedigree?: PedigreeTree
   gallery?: GalleryImage[]
   timeline?: LitterUpdate[]

@@ -206,6 +206,65 @@ export default async function LitterPage({
           </section>
         )}
 
+        {/* Puppies */}
+        {litter.puppies && litter.puppies.length > 0 && (
+          <section>
+            <h2 className="font-heading text-2xl font-semibold text-gray-800 mb-6">The Puppies</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+              {litter.puppies.map((puppy) => {
+                const statusConfig: Record<string, { label: string; className: string }> = {
+                  available: { label: 'Available', className: 'bg-green-100 text-green-800' },
+                  reserved: { label: 'Reserved', className: 'bg-amber-100 text-amber-800' },
+                  placed: { label: 'Placed', className: 'bg-blue-100 text-blue-800' },
+                  kept: { label: 'Kept', className: 'bg-purple-100 text-purple-800' },
+                }
+                const statusInfo = puppy.status && puppy.status !== 'none' ? statusConfig[puppy.status] : null
+                const sexLabel = puppy.sex === 'bitch' ? 'Bitch' : puppy.sex === 'dog' ? 'Dog' : null
+                const card = (
+                  <div className="bg-gray-50 rounded-xl overflow-hidden">
+                    {puppy.photo ? (
+                      <div className="relative h-40">
+                        <Image
+                          src={urlForImage(puppy.photo).width(300).height(200).url()}
+                          alt={puppy.name}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+                        />
+                      </div>
+                    ) : (
+                      <div className="h-40 bg-primary-50 flex items-center justify-center text-3xl">🐾</div>
+                    )}
+                    <div className="p-3">
+                      <p className="font-semibold text-gray-900 text-sm leading-tight">{puppy.name}</p>
+                      {(sexLabel || puppy.colour) && (
+                        <p className="text-xs text-gray-500 mt-0.5">
+                          {[sexLabel, puppy.colour].filter(Boolean).join(' · ')}
+                        </p>
+                      )}
+                      {statusInfo && (
+                        <span className={`inline-block mt-1.5 text-xs font-semibold px-2 py-0.5 rounded-full ${statusInfo.className}`}>
+                          {statusInfo.label}
+                        </span>
+                      )}
+                      {puppy.notes && (
+                        <p className="text-xs text-gray-500 mt-1.5 leading-snug">{puppy.notes}</p>
+                      )}
+                    </div>
+                  </div>
+                )
+                return puppy.dogProfile ? (
+                  <Link key={puppy._key} href={`/dogs/${puppy.dogProfile.slug.current}`} className="group hover:-translate-y-0.5 transition-transform duration-200">
+                    {card}
+                  </Link>
+                ) : (
+                  <div key={puppy._key}>{card}</div>
+                )
+              })}
+            </div>
+          </section>
+        )}
+
         {/* Expected Pedigree */}
         {litter.puppyPedigree && (
           <section>
