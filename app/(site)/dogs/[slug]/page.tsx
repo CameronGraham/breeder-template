@@ -25,7 +25,7 @@ export async function generateMetadata({
   const { slug } = await params
   const dog = await client.fetch<Dog>(dogBySlugQuery, { slug }).catch(() => null)
   if (!dog) return { title: 'Dog Not Found' }
-  const displayName = dog.kcTitle ? `${dog.kcTitle} ${dog.name}` : dog.name
+  const displayName = dog.displayName || dog.name
   return {
     title: displayName,
     description: `Learn about ${displayName}, ${dog.breed || 'our dog'}.`,
@@ -53,7 +53,7 @@ export default async function DogPage({
     notFound()
   }
 
-  const displayName = dog.kcTitle ? `${dog.kcTitle} ${dog.name}` : dog.name
+  const displayName = dog.displayName || dog.name
   const sexLabel = dog.sex === 'bitch' ? 'Bitch' : dog.sex === 'dog' ? 'Dog' : null
 
   const statusColors: Record<string, string> = {
