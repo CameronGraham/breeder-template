@@ -161,7 +161,7 @@ export const allDogSlugsQuery = groq`
 
 // ── Litters ───────────────────────────────────────────────────────────────────
 export const allLittersQuery = groq`
-  *[_type == "litter"] | order(expectedDate desc) {
+  *[_type == "litter" && status != "none"] | order(coalesce(actualDate, expectedDate) desc) {
     _id, title, slug, status, expectedDate, actualDate,
     sire->{name, mainPhoto},
     dam->{name, mainPhoto},

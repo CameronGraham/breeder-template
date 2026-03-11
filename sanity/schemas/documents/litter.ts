@@ -34,6 +34,7 @@ export const litter = defineType({
         ],
         layout: 'radio',
       },
+      initialValue: 'planned',
       validation: (Rule) => Rule.required(),
     }),
     defineField({

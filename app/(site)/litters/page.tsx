@@ -11,14 +11,8 @@ export const metadata: Metadata = {
   description: 'View our current, upcoming and past litters.',
 }
 
-const CURRENT_STATUSES = ['planned', 'expecting', 'born', 'available']
-const PAST_STATUSES = ['all placed']
-
 export default async function LittersPage() {
   const litters = await client.fetch<LitterSummary[]>(allLittersQuery).catch(() => [])
-
-  const currentLitters = litters.filter((l) => CURRENT_STATUSES.includes(l.status))
-  const pastLitters = litters.filter((l) => PAST_STATUSES.includes(l.status))
 
   if (litters.length === 0) {
     return (
@@ -48,33 +42,13 @@ export default async function LittersPage() {
         </p>
       </header>
 
-      {currentLitters.length > 0 && (
-        <section className="mb-16">
-          <h2 className="font-heading text-3xl font-semibold text-gray-800 mb-8 pb-3 border-b border-gray-200">
-            Current & Upcoming Litters
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {currentLitters.map((litter) => (
-              <LitterCard key={litter._id} litter={litter} />
-            ))}
-          </div>
-        </section>
-      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-16">
+        {litters.map((litter) => (
+          <LitterCard key={litter._id} litter={litter} />
+        ))}
+      </div>
 
-      {pastLitters.length > 0 && (
-        <section className="mb-16">
-          <h2 className="font-heading text-3xl font-semibold text-gray-800 mb-8 pb-3 border-b border-gray-200">
-            Past Litters
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {pastLitters.map((litter) => (
-              <LitterCard key={litter._id} litter={litter} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      <div className="mt-8 bg-primary-50 rounded-xl p-8 text-center">
+      <div className="bg-primary-50 rounded-xl p-8 text-center">
         <h3 className="font-heading text-2xl font-semibold text-primary-800 mb-3">
           Interested in a Puppy?
         </h3>
