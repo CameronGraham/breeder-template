@@ -117,13 +117,13 @@ export const dogBySlugQuery = groq`
     colour,
     registrationNumbers[]{ label, value },
     displayName,
+    allowEnquiry,
     status,
     mainPhoto,
     blurb,
     healthTests[] {
       testName,
       result,
-      grade,
       date,
       certificateUrl
     },
@@ -184,16 +184,16 @@ export const litterBySlugQuery = groq`
     description,
     sire->{
       _id, name, displayName, slug, mainPhoto, breed, sex, colour, dateOfBirth, status,
-      healthTests[] { testName, result, grade, date, certificateUrl },
+      healthTests[] { testName, result, date, certificateUrl },
       registrationNumbers[]{ label, value }
     },
     dam->{
       _id, name, displayName, slug, mainPhoto, breed, sex, colour, dateOfBirth, status,
-      healthTests[] { testName, result, grade, date, certificateUrl },
+      healthTests[] { testName, result, date, certificateUrl },
       registrationNumbers[]{ label, value }
     },
-    sireName, sireBreed, sireColour, sireDateOfBirth, sireRegistrationNumbers[]{ label, value }, sirePhoto, sireHealthTests[] { testName, result, grade, date, certificateUrl },
-    damName, damBreed, damColour, damDateOfBirth, damRegistrationNumbers[]{ label, value }, damPhoto, damHealthTests[] { testName, result, grade, date, certificateUrl },
+    sireName, sireBreed, sireColour, sireDateOfBirth, sireRegistrationNumbers[]{ label, value }, sirePhoto, sireHealthTests[] { testName, result, date, certificateUrl },
+    damName, damBreed, damColour, damDateOfBirth, damRegistrationNumbers[]{ label, value }, damPhoto, damHealthTests[] { testName, result, date, certificateUrl },
     puppyPedigree {
       sire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
       sireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },

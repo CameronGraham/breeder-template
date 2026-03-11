@@ -80,7 +80,6 @@ export interface PedigreeTree {
 export interface HealthTest {
   testName: string
   result: string
-  grade?: string
   date?: string
   certificateUrl?: string
 }
@@ -247,6 +246,7 @@ export interface Dog {
   colour?: string
   registrationNumbers?: { label: string; value: string }[]
   displayName?: string
+  allowEnquiry?: boolean
   status?: 'none' | 'active' | 'retired' | 'deceased'
   mainPhoto: SanityImage
   blurb?: PortableTextBlock[]

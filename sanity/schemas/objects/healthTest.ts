@@ -14,16 +14,10 @@ export const healthTest = defineType({
     }),
     defineField({
       name: 'result',
-      title: 'Result',
+      title: 'Result / Grade',
       type: 'string',
-      description: 'e.g. Clear, Carrier, Affected, Pass, Fail',
+      description: 'e.g. Clear, Carrier, Affected, Pass, 4:3 (7 total), Excellent',
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'grade',
-      title: 'Grade / Score',
-      type: 'string',
-      description: 'For hip/elbow scores, e.g. 4:3 (7 total), or Excellent/Good/Fair',
     }),
     defineField({
       name: 'date',
@@ -41,12 +35,11 @@ export const healthTest = defineType({
     select: {
       testName: 'testName',
       result: 'result',
-      grade: 'grade',
     },
-    prepare({ testName, result, grade }) {
+    prepare({ testName, result }) {
       return {
         title: testName,
-        subtitle: grade ? `${result} (${grade})` : result,
+        subtitle: result,
       }
     },
   },

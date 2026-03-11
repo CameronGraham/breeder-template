@@ -68,7 +68,7 @@ export default function HealthTestTable({ tests, dogName, compact = false }: Hea
           <div key={i} className="flex items-center justify-between gap-2 text-sm">
             <span className="text-gray-600 truncate">{test.testName}</span>
             <span className={`text-xs font-semibold px-2 py-0.5 rounded border ${getResultColor(test.result)} flex-shrink-0`}>
-              {test.grade ? `${test.result} (${test.grade})` : test.result}
+              {test.result}
             </span>
           </div>
         ))}
@@ -76,16 +76,17 @@ export default function HealthTestTable({ tests, dogName, compact = false }: Hea
     )
   }
 
+  const hasCertificates = tests.some((t) => t.certificateUrl)
+
   return (
     <div className="overflow-x-auto rounded-xl border border-gray-200">
       <table className="w-full text-sm">
         <thead>
           <tr className="bg-gray-50 border-b border-gray-200">
             <th className="text-left py-3 px-4 font-semibold text-gray-700">Test</th>
-            <th className="text-left py-3 px-4 font-semibold text-gray-700">Result</th>
-            <th className="text-left py-3 px-4 font-semibold text-gray-700 hidden sm:table-cell">Grade/Score</th>
+            <th className="text-left py-3 px-4 font-semibold text-gray-700">Result / Grade</th>
             <th className="text-left py-3 px-4 font-semibold text-gray-700 hidden md:table-cell">Date</th>
-            <th className="text-left py-3 px-4 font-semibold text-gray-700 hidden lg:table-cell">Certificate</th>
+            {hasCertificates && <th className="py-3 px-4 hidden lg:table-cell" />}
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
@@ -97,26 +98,23 @@ export default function HealthTestTable({ tests, dogName, compact = false }: Hea
                   {test.result}
                 </span>
               </td>
-              <td className="py-3 px-4 text-gray-600 hidden sm:table-cell">
-                {test.grade || <span className="text-gray-300">—</span>}
-              </td>
               <td className="py-3 px-4 text-gray-600 hidden md:table-cell">
                 {test.date ? formatDate(test.date) : <span className="text-gray-300">—</span>}
               </td>
-              <td className="py-3 px-4 hidden lg:table-cell">
-                {test.certificateUrl ? (
-                  <a
-                    href={test.certificateUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary-600 hover:text-primary-700 hover:underline text-xs font-medium"
-                  >
-                    View Certificate
-                  </a>
-                ) : (
-                  <span className="text-gray-300">—</span>
-                )}
-              </td>
+              {hasCertificates && (
+                <td className="py-3 px-4 hidden lg:table-cell">
+                  {test.certificateUrl ? (
+                    <a
+                      href={test.certificateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary-600 hover:text-primary-700 hover:underline text-xs font-medium"
+                    >
+                      View Certificate
+                    </a>
+                  ) : null}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

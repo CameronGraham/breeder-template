@@ -75,6 +75,12 @@ export const dog = defineType({
       ],
     }),
     defineField({
+      name: 'allowEnquiry',
+      title: 'Show "Enquire About This Dog" button',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
       name: 'status',
       title: 'Status',
       type: 'string',

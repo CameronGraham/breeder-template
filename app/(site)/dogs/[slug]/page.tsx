@@ -215,12 +215,14 @@ export default async function DogPage({
               </dl>
             </div>
 
-            <a
-              href="/contact"
-              className="block w-full bg-primary-600 text-white text-center py-3 px-6 rounded-lg hover:bg-primary-700 transition-colors font-semibold"
-            >
-              Enquire About This Dog
-            </a>
+            {dog.allowEnquiry === true && (
+              <a
+                href="/contact"
+                className="block w-full bg-primary-600 text-white text-center py-3 px-6 rounded-lg hover:bg-primary-700 transition-colors font-semibold"
+              >
+                Enquire About This Dog
+              </a>
+            )}
           </aside>
         </div>
       </div>
