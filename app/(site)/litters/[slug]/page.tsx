@@ -65,8 +65,8 @@ export default async function LitterPage({
 
   const sireHealthTests = litter.sire?.healthTests || litter.sireHealthTests
   const damHealthTests = litter.dam?.healthTests || litter.damHealthTests
-  const sirePhoto = litter.sire?.mainPhoto || litter.sirePhoto
-  const damPhoto = litter.dam?.mainPhoto || litter.damPhoto
+  const sirePhoto = litter.sirePhoto || litter.sire?.mainPhoto
+  const damPhoto = litter.damPhoto || litter.dam?.mainPhoto
 
   return (
     <article>

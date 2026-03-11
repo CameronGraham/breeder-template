@@ -19,8 +19,8 @@ function formatDate(dateStr?: string): string {
 export default function LitterCard({ litter }: LitterCardProps) {
   const sireName = litter.sire?.name || litter.sireName
   const damName = litter.dam?.name || litter.damName
-  const sirePhoto = litter.sire?.mainPhoto || litter.sirePhoto
-  const damPhoto = litter.dam?.mainPhoto || litter.damPhoto
+  const sirePhoto = litter.sirePhoto || litter.sire?.mainPhoto
+  const damPhoto = litter.damPhoto || litter.dam?.mainPhoto
   const dateDisplay = litter.actualDate
     ? `Born ${formatDate(litter.actualDate)}`
     : litter.expectedDate
