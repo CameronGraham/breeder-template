@@ -1,5 +1,63 @@
 import { groq } from 'next-sanity'
 
+// ── Pedigree helpers ───────────────────────────────────────────────────────────
+// Single entry projection — resolves name from internalDog if not manually set
+const PE = `{ "name": coalesce(name, internalDog->name), colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} }`
+
+// Full pedigree tree projection.
+// For grandparents: if the parent has an internalDog link, resolve from that dog's pedigree.
+// For great-grandparents: first try via the parent's internalDog, then via the grandparent's internalDog.
+const pedigreeBlock = (field: string) => `
+  ${field} {
+    sire ${PE},
+    dam ${PE},
+    "sireSire": select(sire.linkType == "internal" => sire.internalDog->pedigree.sire ${PE}, sireSire ${PE}),
+    "sireDam":  select(sire.linkType == "internal" => sire.internalDog->pedigree.dam  ${PE}, sireDam  ${PE}),
+    "damSire":  select(dam.linkType  == "internal" => dam.internalDog->pedigree.sire  ${PE}, damSire  ${PE}),
+    "damDam":   select(dam.linkType  == "internal" => dam.internalDog->pedigree.dam   ${PE}, damDam   ${PE}),
+    "sireSireSire": select(
+      sire.linkType    == "internal" => sire.internalDog->pedigree.sireSire ${PE},
+      sireSire.linkType == "internal" => sireSire.internalDog->pedigree.sire ${PE},
+      sireSireSire ${PE}
+    ),
+    "sireSireDam": select(
+      sire.linkType    == "internal" => sire.internalDog->pedigree.sireDam ${PE},
+      sireSire.linkType == "internal" => sireSire.internalDog->pedigree.dam ${PE},
+      sireSireDam ${PE}
+    ),
+    "sireDamSire": select(
+      sire.linkType   == "internal" => sire.internalDog->pedigree.damSire ${PE},
+      sireDam.linkType == "internal" => sireDam.internalDog->pedigree.sire ${PE},
+      sireDamSire ${PE}
+    ),
+    "sireDamDam": select(
+      sire.linkType   == "internal" => sire.internalDog->pedigree.damDam ${PE},
+      sireDam.linkType == "internal" => sireDam.internalDog->pedigree.dam ${PE},
+      sireDamDam ${PE}
+    ),
+    "damSireSire": select(
+      dam.linkType    == "internal" => dam.internalDog->pedigree.sireSire ${PE},
+      damSire.linkType == "internal" => damSire.internalDog->pedigree.sire ${PE},
+      damSireSire ${PE}
+    ),
+    "damSireDam": select(
+      dam.linkType    == "internal" => dam.internalDog->pedigree.sireDam ${PE},
+      damSire.linkType == "internal" => damSire.internalDog->pedigree.dam ${PE},
+      damSireDam ${PE}
+    ),
+    "damDamSire": select(
+      dam.linkType   == "internal" => dam.internalDog->pedigree.damSire ${PE},
+      damDam.linkType == "internal" => damDam.internalDog->pedigree.sire ${PE},
+      damDamSire ${PE}
+    ),
+    "damDamDam": select(
+      dam.linkType   == "internal" => dam.internalDog->pedigree.damDam ${PE},
+      damDam.linkType == "internal" => damDam.internalDog->pedigree.dam ${PE},
+      damDamDam ${PE}
+    )
+  }
+`
+
 // ── Site Settings ──────────────────────────────────────────────────────────────
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
@@ -127,22 +185,7 @@ export const dogBySlugQuery = groq`
       date,
       certificateUrl
     },
-    pedigree {
-      sire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      sireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      sireSireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      sireSireDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      sireDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      sireDamSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      sireDamDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      dam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      damSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      damSireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      damSireDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      damDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      damDamSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      damDamDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} }
-    },
+    ${pedigreeBlock('pedigree')},
     gallery[] {
       _key,
       image,
@@ -194,22 +237,7 @@ export const litterBySlugQuery = groq`
     },
     sireName, sireBreed, sireColour, sireDateOfBirth, sireRegistrationNumbers[]{ label, value }, sirePhoto, sireHealthTests[] { testName, result, date, certificateUrl },
     damName, damBreed, damColour, damDateOfBirth, damRegistrationNumbers[]{ label, value }, damPhoto, damHealthTests[] { testName, result, date, certificateUrl },
-    puppyPedigree {
-      sire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      sireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      sireSireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      sireSireDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      sireDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      sireDamSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      sireDamDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      dam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      damSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      damSireSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      damSireDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      damDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      damDamSire { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} },
-      damDamDam { name, colour, breeder, owner, linkType, externalUrl, internalDog->{name, slug} }
-    },
+    ${pedigreeBlock('puppyPedigree')},
     puppies[] {
       _key, name, sex, colour, status, photo, notes,
       dogProfile->{ name, slug }

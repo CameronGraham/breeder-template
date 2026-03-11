@@ -39,9 +39,11 @@ function PedigreeNode({ entry, generation, label }: PedigreeNodeProps) {
     )
   }
 
+  const displayName = entry.name || entry.internalDog?.name || ''
+
   const nameContent = (
     <>
-      <span className={`font-semibold text-gray-900 ${textSize} leading-tight block`}>{entry.name}</span>
+      <span className={`font-semibold text-gray-900 ${textSize} leading-tight block`}>{displayName}</span>
       {entry.colour && (
         <span className="text-[10px] text-gray-400 block mt-0.5">{entry.colour}</span>
       )}
@@ -61,7 +63,7 @@ function PedigreeNode({ entry, generation, label }: PedigreeNodeProps) {
       <Link
         href={`/dogs/${entry.internalDog.slug.current}`}
         className={`${baseClasses} cursor-pointer group`}
-        title={entry.name}
+        title={displayName}
       >
         {label && (
           <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold mb-0.5">{label}</span>
@@ -79,7 +81,7 @@ function PedigreeNode({ entry, generation, label }: PedigreeNodeProps) {
         target="_blank"
         rel="noopener noreferrer"
         className={`${baseClasses} cursor-pointer group`}
-        title={entry.name}
+        title={displayName}
       >
         {label && (
           <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold mb-0.5">{label}</span>
@@ -91,7 +93,7 @@ function PedigreeNode({ entry, generation, label }: PedigreeNodeProps) {
   }
 
   return (
-    <div className={baseClasses} title={entry.name}>
+    <div className={baseClasses} title={displayName}>
       {label && (
         <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold mb-0.5">{label}</span>
       )}
@@ -134,6 +136,7 @@ function Bracket() {
 // Mobile list view for a single ancestor line
 function MobileAncestorRow({ label, entry }: { label: string; entry?: PedigreeEntry }) {
   if (!entry) return null
+  const displayName = entry.name || entry.internalDog?.name || ''
 
   return (
     <div className="flex items-start gap-2 py-1.5">
@@ -141,14 +144,14 @@ function MobileAncestorRow({ label, entry }: { label: string; entry?: PedigreeEn
       <div>
         {entry.linkType === 'internal' && entry.internalDog?.slug?.current ? (
           <Link href={`/dogs/${entry.internalDog.slug.current}`} className="text-primary-600 hover:underline text-sm font-medium">
-            {entry.name}
+            {displayName}
           </Link>
         ) : entry.linkType === 'external' && entry.externalUrl ? (
           <a href={entry.externalUrl} target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline text-sm font-medium">
-            {entry.name} ↗
+            {displayName} ↗
           </a>
         ) : (
-          <span className="font-medium text-gray-900 text-sm">{entry.name}</span>
+          <span className="font-medium text-gray-900 text-sm">{displayName}</span>
         )}
         {entry.colour && <p className="text-xs text-gray-400">{entry.colour}</p>}
         {entry.breeder && <p className="text-xs text-gray-400">Breeder: {entry.breeder}</p>}
