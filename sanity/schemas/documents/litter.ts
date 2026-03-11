@@ -9,7 +9,7 @@ export const litter = defineType({
       name: 'title',
       title: 'Litter Title',
       type: 'string',
-      description: 'e.g. "Bella x Max — Spring 2024"',
+      description: 'e.g. "Izzy x Jengo — August 2015"',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
