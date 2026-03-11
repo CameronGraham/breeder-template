@@ -14,6 +14,9 @@ export const metadata: Metadata = {
 export default async function LittersPage() {
   const litters = await client.fetch<LitterSummary[]>(allLittersQuery).catch(() => [])
 
+  const currentLitters = litters.filter((l) => !l.actualDate)
+  const pastLitters = litters.filter((l) => !!l.actualDate)
+
   if (litters.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
@@ -42,11 +45,27 @@ export default async function LittersPage() {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-16">
-        {litters.map((litter) => (
-          <LitterCard key={litter._id} litter={litter} />
-        ))}
-      </div>
+      {currentLitters.length > 0 && (
+        <section className="mb-16">
+          <h2 className="font-heading text-2xl font-semibold text-gray-800 mb-6">Current &amp; Upcoming</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {currentLitters.map((litter) => (
+              <LitterCard key={litter._id} litter={litter} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {pastLitters.length > 0 && (
+        <section className="mb-16">
+          <h2 className="font-heading text-2xl font-semibold text-gray-800 mb-6">Past Litters</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {pastLitters.map((litter) => (
+              <LitterCard key={litter._id} litter={litter} />
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="bg-primary-50 rounded-xl p-8 text-center">
         <h3 className="font-heading text-2xl font-semibold text-primary-800 mb-3">
