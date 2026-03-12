@@ -59,25 +59,26 @@ export default function ContactFormBlock({ block }: ContactFormBlockProps) {
   }
 
   const inputClasses =
-    'w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow text-gray-900 placeholder-gray-400'
-  const labelClasses = 'block text-sm font-semibold text-gray-700 mb-1.5'
+    'w-full px-4 py-3 bg-white border border-[#e8dfd2] focus:outline-none focus:border-[#c4a05a] focus:ring-1 focus:ring-[#c4a05a]/30 transition-colors font-body text-[#1a1714] placeholder-[#c8bfb0] rounded'
+  const labelClasses = 'block font-body text-xs font-medium uppercase tracking-[0.12em] text-[#7a6c5c] mb-2'
 
   if (submitState === 'success') {
     return (
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          <div className="w-14 h-14 border border-emerald-300 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg className="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="font-heading text-3xl font-semibold text-gray-900 mb-4">Message Sent!</h2>
-          <p className="text-gray-600 text-lg mb-8">
+          <div className="h-px w-10 bg-[#c4a05a] mx-auto mb-5" />
+          <h2 className="font-heading font-normal text-3xl text-[#1a1714] mb-4 tracking-wide">Message Sent</h2>
+          <p className="font-body text-[#7a6c5c] text-base mb-8 leading-relaxed">
             Thank you for getting in touch. We&apos;ll get back to you as soon as possible.
           </p>
           <button
             onClick={() => setSubmitState('idle')}
-            className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-semibold"
+            className="font-body text-sm tracking-[0.12em] uppercase border border-[#1a1714] text-[#1a1714] px-8 py-3 hover:bg-[#1a1714] hover:text-[#f0e8d8] transition-all duration-200"
           >
             Send Another Message
           </button>
@@ -90,12 +91,15 @@ export default function ContactFormBlock({ block }: ContactFormBlockProps) {
     <section className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
         {block.heading && (
-          <h2 className="font-heading text-3xl md:text-4xl font-semibold text-gray-900 mb-4 text-center">
-            {block.heading}
-          </h2>
+          <>
+            <div className="h-px w-10 bg-[#c4a05a] mb-5" />
+            <h2 className="font-heading font-normal text-4xl md:text-5xl tracking-wide text-[#1a1714] mb-4">
+              {block.heading}
+            </h2>
+          </>
         )}
         {block.introText && (
-          <p className="text-gray-600 text-lg text-center mb-10 leading-relaxed">
+          <p className="font-body text-[#7a6c5c] text-base mb-10 leading-relaxed">
             {block.introText}
           </p>
         )}
@@ -104,7 +108,7 @@ export default function ContactFormBlock({ block }: ContactFormBlockProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <label htmlFor="name" className={labelClasses}>
-                Name <span className="text-red-500">*</span>
+                Name <span className="text-[#c4a05a]">*</span>
               </label>
               <input
                 id="name"
@@ -120,7 +124,7 @@ export default function ContactFormBlock({ block }: ContactFormBlockProps) {
             </div>
             <div>
               <label htmlFor="email" className={labelClasses}>
-                Email <span className="text-red-500">*</span>
+                Email <span className="text-[#c4a05a]">*</span>
               </label>
               <input
                 id="email"
@@ -139,7 +143,7 @@ export default function ContactFormBlock({ block }: ContactFormBlockProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <label htmlFor="phone" className={labelClasses}>
-                Phone <span className="text-gray-400 font-normal">(optional)</span>
+                Phone <span className="text-[#c8bfb0] font-normal normal-case tracking-normal">(optional)</span>
               </label>
               <input
                 id="phone"
@@ -154,7 +158,7 @@ export default function ContactFormBlock({ block }: ContactFormBlockProps) {
             </div>
             <div>
               <label htmlFor="subject" className={labelClasses}>
-                Subject <span className="text-red-500">*</span>
+                Subject <span className="text-[#c4a05a]">*</span>
               </label>
               <select
                 id="subject"
@@ -176,7 +180,7 @@ export default function ContactFormBlock({ block }: ContactFormBlockProps) {
 
           <div>
             <label htmlFor="message" className={labelClasses}>
-              Message <span className="text-red-500">*</span>
+              Message <span className="text-[#c4a05a]">*</span>
             </label>
             <textarea
               id="message"
@@ -191,7 +195,7 @@ export default function ContactFormBlock({ block }: ContactFormBlockProps) {
           </div>
 
           {submitState === 'error' && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700 text-sm">
+            <div className="border border-red-200 bg-red-50 p-4 text-red-700 text-sm font-body">
               <strong>Error: </strong>{errorMessage}
             </div>
           )}
@@ -199,11 +203,11 @@ export default function ContactFormBlock({ block }: ContactFormBlockProps) {
           <button
             type="submit"
             disabled={submitState === 'submitting'}
-            className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-primary-300 text-white font-semibold py-4 px-8 rounded-xl transition-colors duration-200 text-lg flex items-center justify-center gap-2"
+            className="w-full bg-[#1a1714] hover:bg-[#c4a05a] disabled:bg-[#c8bfb0] text-[#f0e8d8] hover:text-[#1a1714] font-body text-sm tracking-[0.15em] uppercase py-4 px-8 transition-all duration-300 flex items-center justify-center gap-2"
           >
             {submitState === 'submitting' ? (
               <>
-                <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
@@ -214,7 +218,7 @@ export default function ContactFormBlock({ block }: ContactFormBlockProps) {
             )}
           </button>
 
-          <p className="text-xs text-gray-400 text-center">
+          <p className="font-body text-xs text-[#c8bfb0] text-center">
             We respect your privacy and will never share your details with third parties.
           </p>
         </form>

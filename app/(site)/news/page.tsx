@@ -16,9 +16,10 @@ export default async function NewsPage() {
 
   if (posts.length === 0) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h1 className="font-heading text-4xl font-bold text-gray-800 mb-4">News & Updates</h1>
-        <p className="text-gray-500 text-lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+        <div className="h-px w-10 bg-[#c4a05a] mx-auto mb-6" />
+        <h1 className="font-heading font-normal text-5xl tracking-wide text-[#1a1714] mb-5">News &amp; Updates</h1>
+        <p className="font-body text-[#7a6c5c] text-lg">
           No news posts yet. Check back soon for updates from our kennel.
         </p>
       </div>
@@ -26,20 +27,26 @@ export default async function NewsPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <header className="mb-12 text-center">
-        <h1 className="font-heading text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          News &amp; Updates
-        </h1>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-          The latest news, show results and updates from our kennel.
-        </p>
-      </header>
+    <div>
+      {/* Page header */}
+      <div className="bg-[#1a1714] px-4 sm:px-6 lg:px-8 pt-16 pb-12 md:pt-20 md:pb-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="h-px w-12 bg-[#c4a05a] mb-6" />
+          <h1 className="font-heading font-normal text-5xl md:text-7xl tracking-wide text-[#f0e8d8] leading-tight">
+            News &amp; Updates
+          </h1>
+          <p className="font-body text-[#9e8e7e] text-base mt-4 max-w-lg">
+            The latest news, show results and updates from our kennel.
+          </p>
+        </div>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post) => (
-          <NewsCard key={post._id} post={post} />
-        ))}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {posts.map((post) => (
+            <NewsCard key={post._id} post={post} />
+          ))}
+        </div>
       </div>
     </div>
   )

@@ -17,6 +17,7 @@ async function getSiteSettings(): Promise<SiteSettings | null> {
 // Map font names to Google Fonts families
 function getFontUrl(heading: string, body: string): string {
   const headingMap: Record<string, string> = {
+    'Cormorant Garamond': 'Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700',
     'Playfair Display': 'Playfair+Display:ital,wght@0,400;0,600;0,700;1,400',
     'Lora': 'Lora:ital,wght@0,400;0,600;1,400',
     'Merriweather': 'Merriweather:ital,wght@0,300;0,400;0,700;1,300',
@@ -24,6 +25,7 @@ function getFontUrl(heading: string, body: string): string {
     'Raleway': 'Raleway:wght@300;400;600;700',
   }
   const bodyMap: Record<string, string> = {
+    'Outfit': 'Outfit:wght@300;400;500;600;700',
     'Lato': 'Lato:ital,wght@0,300;0,400;0,700;1,300;1,400',
     'Open Sans': 'Open+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400',
     'Nunito': 'Nunito:wght@300;400;600;700',
@@ -100,8 +102,8 @@ export default async function RootLayout({
 }) {
   const settings = await getSiteSettings()
 
-  const headingFont = settings?.headingFont || 'Playfair Display'
-  const bodyFont = settings?.bodyFont || 'Lato'
+  const headingFont = settings?.headingFont || 'Cormorant Garamond'
+  const bodyFont = settings?.bodyFont || 'Outfit'
   const fontUrl = getFontUrl(headingFont, bodyFont)
 
   let cssVarsString = ''

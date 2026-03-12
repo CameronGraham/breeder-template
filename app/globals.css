@@ -16,14 +16,14 @@
   --color-primary-800: #1e4e1e;
   --color-primary-900: #183d18;
 
-  /* Accent */
-  --color-accent:       #c8a96e;
-  --color-accent-light: #e8d4ad;
-  --color-accent-dark:  #9e7c42;
+  /* Accent — fixed brass/gold, decorative only, not overridden by primary */
+  --color-accent:       #c4a05a;
+  --color-accent-light: #e0c87e;
+  --color-accent-dark:  #8a6e38;
 
   /* Typography */
-  --font-heading: 'Playfair Display', Georgia, serif;
-  --font-body:    'Lato', system-ui, sans-serif;
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Outfit', system-ui, sans-serif;
 }
 
 @layer base {
@@ -31,10 +31,12 @@
     @apply scroll-smooth;
   }
   body {
-    @apply font-body text-gray-800 bg-white;
+    font-family: var(--font-body);
+    color: #1a1714;
+    background-color: #faf8f3;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
+    font-family: var(--font-heading);
   }
 }
 
@@ -43,6 +45,36 @@
     @apply prose prose-lg max-w-none
       prose-headings:font-heading
       prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline
-      prose-img:rounded-lg;
+      prose-img:rounded-lg
+      prose-p:text-[#3a3028] prose-p:leading-relaxed
+      prose-headings:font-normal prose-headings:tracking-wide;
+  }
+
+  /* Fine gold horizontal rule — use as <hr className="rule-gold" /> */
+  .rule-gold {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-accent), transparent);
+    border: none;
+    margin: 0;
+  }
+
+  /* Eyebrow label above headings */
+  .eyebrow {
+    display: block;
+    font-size: 0.6875rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #7a6c5c;
+    margin-bottom: 0.625rem;
+  }
+
+  /* Warm surface utilities */
+  .bg-warm-50 {
+    background-color: #f5f0e8;
+  }
+  .bg-ink {
+    background-color: #1a1714;
   }
 }

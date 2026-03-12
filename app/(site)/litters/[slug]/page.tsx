@@ -71,24 +71,27 @@ export default async function LitterPage({
   return (
     <article>
       {/* Header */}
-      <div className="bg-primary-800 text-white py-16 px-4">
+      <div className="bg-[#1a1714] px-4 sm:px-6 lg:px-8 pt-16 pb-12 md:pt-20 md:pb-16">
         <div className="max-w-5xl mx-auto">
+          <div className="h-px w-12 bg-[#c4a05a] mb-5" />
           <div className="flex flex-wrap items-center gap-3 mb-3">
             <StatusBadge status={litter.status} />
           </div>
-          <h1 className="font-heading text-3xl md:text-5xl font-bold mb-4">{litter.title}</h1>
-          <div className="flex flex-wrap gap-6 text-primary-200 text-sm">
+          <h1 className="font-heading font-normal text-4xl md:text-6xl tracking-wide text-[#f0e8d8] leading-tight mb-4">
+            {litter.title}
+          </h1>
+          <div className="flex flex-wrap gap-6 font-body text-sm text-[#9e8e7e]">
             {litter.expectedDate && !litter.actualDate && (
-              <span>Expected: <strong className="text-white">{formatDate(litter.expectedDate)}</strong></span>
+              <span>Expected: <strong className="text-[#f0e8d8] font-medium">{formatDate(litter.expectedDate)}</strong></span>
             )}
             {litter.actualDate && (
-              <span>Born: <strong className="text-white">{formatDate(litter.actualDate)}</strong></span>
+              <span>Born: <strong className="text-[#f0e8d8] font-medium">{formatDate(litter.actualDate)}</strong></span>
             )}
             {litter.numberOfPuppies != null && (
               <span>
-                <strong className="text-white">{litter.numberOfPuppies}</strong> puppies
+                <strong className="text-[#f0e8d8] font-medium">{litter.numberOfPuppies}</strong> puppies
                 {litter.numberOfDogs != null && litter.numberOfBitches != null && (
-                  <span> ({litter.numberOfDogs} dog{litter.numberOfDogs !== 1 ? 's' : ''}, {litter.numberOfBitches} bitch{litter.numberOfBitches !== 1 ? 'es' : ''})</span>
+                  <span className="text-[#6b5c4c]"> ({litter.numberOfDogs} dog{litter.numberOfDogs !== 1 ? 's' : ''}, {litter.numberOfBitches} bitch{litter.numberOfBitches !== 1 ? 'es' : ''})</span>
                 )}
               </span>
             )}
@@ -100,12 +103,13 @@ export default async function LitterPage({
 
         {/* Sire & Dam */}
         <section>
-          <h2 className="font-heading text-2xl font-semibold text-gray-800 mb-8">
-            Sire &amp; Dam
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="flex items-center gap-4 mb-8">
+            <h2 className="font-heading font-normal text-2xl md:text-3xl tracking-wide text-[#1a1714] whitespace-nowrap">Sire &amp; Dam</h2>
+            <div className="flex-1 h-px bg-[#e8dfd2]" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Sire */}
-            <div className="bg-gray-50 rounded-xl overflow-hidden">
+            <div className="border border-[#e8dfd2] rounded-lg overflow-hidden">
               {sirePhoto && (
                 <div className="relative h-48">
                   <Image
@@ -117,71 +121,47 @@ export default async function LitterPage({
                   />
                 </div>
               )}
-              <div className="p-6">
-                <p className="text-xs uppercase tracking-widest text-gray-400 font-semibold mb-1">Sire</p>
+              <div className="p-5">
+                <p className="font-body text-xs uppercase tracking-[0.2em] text-[#9e8e7e] mb-2">Sire</p>
                 {litter.sire ? (
                   <Link
                     href={`/dogs/${litter.sire.slug.current}`}
-                    className="font-heading text-xl font-semibold text-primary-700 hover:text-primary-800 transition-colors"
+                    className="font-heading text-xl font-normal text-primary-700 hover:text-primary-800 transition-colors tracking-wide"
                   >
                     {sireName}
                   </Link>
                 ) : (
-                  <p className="font-heading text-xl font-semibold text-gray-800">{sireName || 'TBC'}</p>
+                  <p className="font-heading text-xl font-normal text-[#1a1714] tracking-wide">{sireName || 'TBC'}</p>
                 )}
-                <dl className="space-y-1 text-sm mt-3">
-                  {litter.sire?.breed && (
+                <dl className="space-y-2 text-sm mt-4">
+                  {(litter.sire?.breed || litter.sireBreed) && (
                     <div className="flex justify-between">
-                      <dt className="text-gray-500">Breed</dt>
-                      <dd className="font-medium text-gray-800 text-right">{litter.sire.breed}</dd>
+                      <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">Breed</dt>
+                      <dd className="font-body text-sm font-medium text-[#1a1714] text-right">{litter.sire?.breed || litter.sireBreed}</dd>
                     </div>
                   )}
-                  {litter.sire?.colour && (
+                  {(litter.sire?.colour || litter.sireColour) && (
                     <div className="flex justify-between">
-                      <dt className="text-gray-500">Colour</dt>
-                      <dd className="font-medium text-gray-800 text-right">{litter.sire.colour}</dd>
+                      <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">Colour</dt>
+                      <dd className="font-body text-sm font-medium text-[#1a1714] text-right">{litter.sire?.colour || litter.sireColour}</dd>
                     </div>
                   )}
-                  {litter.sire?.dateOfBirth && (
+                  {(litter.sire?.dateOfBirth || litter.sireDateOfBirth) && (
                     <div className="flex justify-between">
-                      <dt className="text-gray-500">Date of Birth</dt>
-                      <dd className="font-medium text-gray-800">{formatDate(litter.sire.dateOfBirth)}</dd>
+                      <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">Born</dt>
+                      <dd className="font-body text-sm font-medium text-[#1a1714]">{formatDate(litter.sire?.dateOfBirth || litter.sireDateOfBirth)}</dd>
                     </div>
                   )}
-                  {litter.sire?.registrationNumbers?.map((reg) => (
+                  {(litter.sire?.registrationNumbers || litter.sireRegistrationNumbers)?.map((reg) => (
                     <div key={reg.label} className="flex justify-between">
-                      <dt className="text-gray-500">{reg.label}</dt>
-                      <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
-                    </div>
-                  ))}
-                  {litter.sireBreed && !litter.sire && (
-                    <div className="flex justify-between">
-                      <dt className="text-gray-500">Breed</dt>
-                      <dd className="font-medium text-gray-800 text-right">{litter.sireBreed}</dd>
-                    </div>
-                  )}
-                  {litter.sireColour && !litter.sire && (
-                    <div className="flex justify-between">
-                      <dt className="text-gray-500">Colour</dt>
-                      <dd className="font-medium text-gray-800 text-right">{litter.sireColour}</dd>
-                    </div>
-                  )}
-                  {litter.sireDateOfBirth && !litter.sire && (
-                    <div className="flex justify-between">
-                      <dt className="text-gray-500">Date of Birth</dt>
-                      <dd className="font-medium text-gray-800">{formatDate(litter.sireDateOfBirth)}</dd>
-                    </div>
-                  )}
-                  {litter.sireRegistrationNumbers?.map((reg) => (
-                    <div key={reg.label} className="flex justify-between">
-                      <dt className="text-gray-500">{reg.label}</dt>
-                      <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
+                      <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">{reg.label}</dt>
+                      <dd className="font-body text-sm font-medium text-[#1a1714] text-right">{reg.value}</dd>
                     </div>
                   ))}
                 </dl>
                 {sireHealthTests && sireHealthTests.length > 0 && (
-                  <div className="mt-4">
-                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Health Tests</h4>
+                  <div className="mt-4 pt-4 border-t border-[#f0ece4]">
+                    <p className="font-body text-xs uppercase tracking-[0.15em] text-[#9e8e7e] mb-3">Health Tests</p>
                     <HealthTestTable tests={sireHealthTests} dogName={sireName || 'Sire'} compact />
                   </div>
                 )}
@@ -189,7 +169,7 @@ export default async function LitterPage({
             </div>
 
             {/* Dam */}
-            <div className="bg-gray-50 rounded-xl overflow-hidden">
+            <div className="border border-[#e8dfd2] rounded-lg overflow-hidden">
               {damPhoto && (
                 <div className="relative h-48">
                   <Image
@@ -201,71 +181,47 @@ export default async function LitterPage({
                   />
                 </div>
               )}
-              <div className="p-6">
-                <p className="text-xs uppercase tracking-widest text-gray-400 font-semibold mb-1">Dam</p>
+              <div className="p-5">
+                <p className="font-body text-xs uppercase tracking-[0.2em] text-[#9e8e7e] mb-2">Dam</p>
                 {litter.dam ? (
                   <Link
                     href={`/dogs/${litter.dam.slug.current}`}
-                    className="font-heading text-xl font-semibold text-primary-700 hover:text-primary-800 transition-colors"
+                    className="font-heading text-xl font-normal text-primary-700 hover:text-primary-800 transition-colors tracking-wide"
                   >
                     {damName}
                   </Link>
                 ) : (
-                  <p className="font-heading text-xl font-semibold text-gray-800">{damName || 'TBC'}</p>
+                  <p className="font-heading text-xl font-normal text-[#1a1714] tracking-wide">{damName || 'TBC'}</p>
                 )}
-                <dl className="space-y-1 text-sm mt-3">
-                  {litter.dam?.breed && (
+                <dl className="space-y-2 text-sm mt-4">
+                  {(litter.dam?.breed || litter.damBreed) && (
                     <div className="flex justify-between">
-                      <dt className="text-gray-500">Breed</dt>
-                      <dd className="font-medium text-gray-800 text-right">{litter.dam.breed}</dd>
+                      <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">Breed</dt>
+                      <dd className="font-body text-sm font-medium text-[#1a1714] text-right">{litter.dam?.breed || litter.damBreed}</dd>
                     </div>
                   )}
-                  {litter.dam?.colour && (
+                  {(litter.dam?.colour || litter.damColour) && (
                     <div className="flex justify-between">
-                      <dt className="text-gray-500">Colour</dt>
-                      <dd className="font-medium text-gray-800 text-right">{litter.dam.colour}</dd>
+                      <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">Colour</dt>
+                      <dd className="font-body text-sm font-medium text-[#1a1714] text-right">{litter.dam?.colour || litter.damColour}</dd>
                     </div>
                   )}
-                  {litter.dam?.dateOfBirth && (
+                  {(litter.dam?.dateOfBirth || litter.damDateOfBirth) && (
                     <div className="flex justify-between">
-                      <dt className="text-gray-500">Date of Birth</dt>
-                      <dd className="font-medium text-gray-800">{formatDate(litter.dam.dateOfBirth)}</dd>
+                      <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">Born</dt>
+                      <dd className="font-body text-sm font-medium text-[#1a1714]">{formatDate(litter.dam?.dateOfBirth || litter.damDateOfBirth)}</dd>
                     </div>
                   )}
-                  {litter.dam?.registrationNumbers?.map((reg) => (
+                  {(litter.dam?.registrationNumbers || litter.damRegistrationNumbers)?.map((reg) => (
                     <div key={reg.label} className="flex justify-between">
-                      <dt className="text-gray-500">{reg.label}</dt>
-                      <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
-                    </div>
-                  ))}
-                  {litter.damBreed && !litter.dam && (
-                    <div className="flex justify-between">
-                      <dt className="text-gray-500">Breed</dt>
-                      <dd className="font-medium text-gray-800 text-right">{litter.damBreed}</dd>
-                    </div>
-                  )}
-                  {litter.damColour && !litter.dam && (
-                    <div className="flex justify-between">
-                      <dt className="text-gray-500">Colour</dt>
-                      <dd className="font-medium text-gray-800 text-right">{litter.damColour}</dd>
-                    </div>
-                  )}
-                  {litter.damDateOfBirth && !litter.dam && (
-                    <div className="flex justify-between">
-                      <dt className="text-gray-500">Date of Birth</dt>
-                      <dd className="font-medium text-gray-800">{formatDate(litter.damDateOfBirth)}</dd>
-                    </div>
-                  )}
-                  {litter.damRegistrationNumbers?.map((reg) => (
-                    <div key={reg.label} className="flex justify-between">
-                      <dt className="text-gray-500">{reg.label}</dt>
-                      <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
+                      <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">{reg.label}</dt>
+                      <dd className="font-body text-sm font-medium text-[#1a1714] text-right">{reg.value}</dd>
                     </div>
                   ))}
                 </dl>
                 {damHealthTests && damHealthTests.length > 0 && (
-                  <div className="mt-4">
-                    <h4 className="text-sm font-semibold text-gray-600 mb-2">Health Tests</h4>
+                  <div className="mt-4 pt-4 border-t border-[#f0ece4]">
+                    <p className="font-body text-xs uppercase tracking-[0.15em] text-[#9e8e7e] mb-3">Health Tests</p>
                     <HealthTestTable tests={damHealthTests} dogName={damName || 'Dam'} compact />
                   </div>
                 )}
@@ -277,9 +233,10 @@ export default async function LitterPage({
         {/* Description */}
         {litter.description && litter.description.length > 0 && (
           <section>
-            <h2 className="font-heading text-2xl font-semibold text-gray-800 mb-4">
-              About This Litter
-            </h2>
+            <div className="flex items-center gap-4 mb-6">
+              <h2 className="font-heading font-normal text-2xl md:text-3xl tracking-wide text-[#1a1714] whitespace-nowrap">About This Litter</h2>
+              <div className="flex-1 h-px bg-[#e8dfd2]" />
+            </div>
             <div className="prose-breeder">
               <PortableTextRenderer value={litter.description} />
             </div>
@@ -289,21 +246,24 @@ export default async function LitterPage({
         {/* Puppies */}
         {litter.puppies && litter.puppies.length > 0 && (
           <section>
-            <h2 className="font-heading text-2xl font-semibold text-gray-800 mb-6">The Puppies</h2>
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="font-heading font-normal text-2xl md:text-3xl tracking-wide text-[#1a1714] whitespace-nowrap">The Puppies</h2>
+              <div className="flex-1 h-px bg-[#e8dfd2]" />
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {litter.puppies.map((puppy) => {
-                const statusConfig: Record<string, { label: string; className: string }> = {
-                  available: { label: 'Available', className: 'bg-green-100 text-green-800' },
-                  reserved: { label: 'Reserved', className: 'bg-amber-100 text-amber-800' },
-                  placed: { label: 'Placed', className: 'bg-blue-100 text-blue-800' },
-                  kept: { label: 'Kept', className: 'bg-purple-100 text-purple-800' },
+                const puppyStatusConfig: Record<string, { label: string; className: string }> = {
+                  available: { label: 'Available', className: 'text-emerald-700 border-emerald-300 bg-emerald-50' },
+                  reserved: { label: 'Reserved', className: 'text-amber-700 border-amber-300 bg-amber-50' },
+                  placed: { label: 'Placed', className: 'text-sky-700 border-sky-200 bg-sky-50' },
+                  kept: { label: 'Kept', className: 'text-violet-700 border-violet-200 bg-violet-50' },
                 }
-                const statusInfo = puppy.status && puppy.status !== 'none' ? statusConfig[puppy.status] : null
+                const statusInfo = puppy.status && puppy.status !== 'none' ? puppyStatusConfig[puppy.status] : null
                 const sexLabel = puppy.sex === 'bitch' ? 'Bitch' : puppy.sex === 'dog' ? 'Dog' : null
                 const card = (
-                  <div className="bg-gray-50 rounded-xl overflow-hidden">
+                  <div className="bg-white border border-[#e8dfd2] group-hover:border-[#c4a05a] rounded-lg overflow-hidden transition-colors duration-200">
                     {puppy.photo ? (
-                      <div className="relative h-40">
+                      <div className="relative h-36">
                         <Image
                           src={urlForImage(puppy.photo).width(300).height(200).url()}
                           alt={puppy.name}
@@ -313,28 +273,32 @@ export default async function LitterPage({
                         />
                       </div>
                     ) : (
-                      <div className="h-40 bg-primary-50 flex items-center justify-center text-3xl">🐾</div>
+                      <div className="h-36 bg-[#f5f0e8] flex items-center justify-center">
+                        <svg className="w-8 h-8 text-[#c8bfb0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                      </div>
                     )}
                     <div className="p-3">
-                      <p className="font-semibold text-gray-900 text-sm leading-tight">{puppy.name}</p>
+                      <p className="font-heading text-base font-normal text-[#1a1714] leading-tight">{puppy.name}</p>
                       {(sexLabel || puppy.colour) && (
-                        <p className="text-xs text-gray-500 mt-0.5">
+                        <p className="font-body text-xs text-[#9e8e7e] mt-0.5 uppercase tracking-wide">
                           {[sexLabel, puppy.colour].filter(Boolean).join(' · ')}
                         </p>
                       )}
                       {statusInfo && (
-                        <span className={`inline-block mt-1.5 text-xs font-semibold px-2 py-0.5 rounded-full ${statusInfo.className}`}>
+                        <span className={`inline-block mt-2 font-body text-xs font-medium uppercase tracking-wide px-2 py-0.5 border rounded ${statusInfo.className}`}>
                           {statusInfo.label}
                         </span>
                       )}
                       {puppy.notes && (
-                        <p className="text-xs text-gray-500 mt-1.5 leading-snug">{puppy.notes}</p>
+                        <p className="font-body text-xs text-[#7a6c5c] mt-1.5 leading-snug">{puppy.notes}</p>
                       )}
                     </div>
                   </div>
                 )
                 return puppy.dogProfile ? (
-                  <Link key={puppy._key} href={`/dogs/${puppy.dogProfile.slug.current}`} className="group hover:-translate-y-0.5 transition-transform duration-200">
+                  <Link key={puppy._key} href={`/dogs/${puppy.dogProfile.slug.current}`} className="group">
                     {card}
                   </Link>
                 ) : (
@@ -355,7 +319,10 @@ export default async function LitterPage({
         {/* Gallery */}
         {litter.gallery && litter.gallery.length > 0 && (
           <section>
-            <h2 className="font-heading text-2xl font-semibold text-gray-800 mb-6">Gallery</h2>
+            <div className="flex items-center gap-4 mb-6">
+              <h2 className="font-heading font-normal text-2xl md:text-3xl tracking-wide text-[#1a1714] whitespace-nowrap">Gallery</h2>
+              <div className="flex-1 h-px bg-[#e8dfd2]" />
+            </div>
             <Gallery images={litter.gallery} columns={3} />
           </section>
         )}
@@ -363,26 +330,33 @@ export default async function LitterPage({
         {/* Timeline */}
         {litter.timeline && litter.timeline.length > 0 && (
           <section>
-            <h2 className="font-heading text-2xl font-semibold text-gray-800 mb-6">
-              Litter Diary
-            </h2>
+            <div className="flex items-center gap-4 mb-6">
+              <h2 className="font-heading font-normal text-2xl md:text-3xl tracking-wide text-[#1a1714] whitespace-nowrap">Litter Diary</h2>
+              <div className="flex-1 h-px bg-[#e8dfd2]" />
+            </div>
             <LitterTimeline updates={litter.timeline} />
           </section>
         )}
 
         {/* CTA */}
-        <div className="bg-primary-50 rounded-xl p-8 text-center">
-          <h3 className="font-heading text-2xl font-semibold text-primary-800 mb-3">
-            Interested in a Puppy?
-          </h3>
-          <p className="text-primary-700 mb-6">
-            Get in touch to find out more about availability and our puppy waiting list.
-          </p>
+        <div className="bg-[#1a1714] px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="eyebrow text-[#6b5c4c] mb-1">Enquire today</p>
+            <h3 className="font-heading font-normal text-2xl md:text-3xl text-[#f0e8d8] tracking-wide">
+              Interested in a Puppy?
+            </h3>
+            <p className="font-body text-sm text-[#9e8e7e] mt-2">
+              Get in touch to find out more about availability and our puppy waiting list.
+            </p>
+          </div>
           <Link
             href="/contact"
-            className="inline-block bg-primary-600 text-white px-8 py-3 rounded-lg hover:bg-primary-700 transition-colors font-semibold"
+            className="flex-shrink-0 inline-flex items-center gap-2 font-body text-sm tracking-[0.12em] uppercase border border-[#c4a05a] text-[#c4a05a] hover:bg-[#c4a05a] hover:text-[#1a1714] px-8 py-3 transition-all duration-200"
           >
             Enquire Now
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </Link>
         </div>
       </div>

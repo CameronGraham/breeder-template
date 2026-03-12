@@ -41,6 +41,12 @@ function formatDate(dateStr?: string): string {
   })
 }
 
+const statusConfig: Record<string, { label: string; classes: string }> = {
+  active: { label: 'Active', classes: 'text-emerald-700 border-emerald-300 bg-emerald-50' },
+  retired: { label: 'Retired', classes: 'text-[#7a6c5c] border-[#c8bfb0] bg-[#f5f0e8]' },
+  deceased: { label: 'Deceased', classes: 'text-[#6b5c4c] border-[#c8bfb0] bg-[#f0ece4]' },
+}
+
 export default async function DogPage({
   params,
 }: {
@@ -55,52 +61,54 @@ export default async function DogPage({
 
   const displayName = dog.displayName || dog.name
   const sexLabel = dog.sex === 'bitch' ? 'Bitch' : dog.sex === 'dog' ? 'Dog' : null
-
-  const statusColors: Record<string, string> = {
-    active: 'bg-green-100 text-green-800',
-    retired: 'bg-gray-100 text-gray-700',
-    deceased: 'bg-stone-100 text-stone-700',
-  }
+  const status = dog.status && dog.status !== 'none' ? statusConfig[dog.status] : null
 
   return (
     <article>
       {/* Hero */}
-      <div className="relative h-64 md:h-96 bg-primary-900 overflow-hidden">
+      <div className="relative h-72 md:h-[28rem] bg-[#1a1714] overflow-hidden">
         {dog.mainPhoto && (
           <Image
-            src={urlForImage(dog.mainPhoto).width(1600).height(600).url()}
+            src={urlForImage(dog.mainPhoto).width(1600).height(650).url()}
             alt={displayName}
             fill
-            className="object-cover object-center opacity-80"
+            className="object-cover object-center opacity-60"
             priority
             sizes="100vw"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 max-w-7xl mx-auto">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-8 lg:px-12 pb-8 md:pb-12 max-w-7xl mx-auto">
+          <div className="h-px w-12 bg-[#c4a05a] mb-4" />
           <div className="flex flex-wrap items-end gap-3">
-            <h1 className="font-heading text-3xl md:text-5xl font-bold text-white">
+            <h1 className="font-heading font-normal text-4xl md:text-6xl tracking-wide text-white leading-tight">
               {displayName}
             </h1>
-            {dog.status && dog.status !== 'none' && (
-              <span className={`text-sm font-semibold px-3 py-1 rounded-full mb-1 ${statusColors[dog.status] || 'bg-gray-100 text-gray-700'}`}>
-                {dog.status.charAt(0).toUpperCase() + dog.status.slice(1)}
+            {status && (
+              <span className={`font-body text-xs font-medium uppercase tracking-wide px-2.5 py-1 border rounded mb-1 ${status.classes}`}>
+                {status.label}
               </span>
             )}
           </div>
+          {(sexLabel || dog.breed) && (
+            <p className="font-body text-sm text-white/60 mt-2 tracking-wide">
+              {[sexLabel, dog.breed].filter(Boolean).join(' · ')}
+            </p>
+          )}
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main content */}
-          <div className="lg:col-span-2 space-y-10">
+          <div className="lg:col-span-2 space-y-12">
             {/* About */}
             {dog.blurb && dog.blurb.length > 0 && (
               <section>
-                <h2 className="font-heading text-2xl font-semibold text-gray-800 mb-4">
-                  About {dog.name}
-                </h2>
+                <div className="flex items-center gap-4 mb-6">
+                  <h2 className="font-heading font-normal text-2xl md:text-3xl tracking-wide text-[#1a1714]">About {dog.name}</h2>
+                  <div className="flex-1 h-px bg-[#e8dfd2]" />
+                </div>
                 <div className="prose-breeder">
                   <PortableTextRenderer value={dog.blurb} />
                 </div>
@@ -110,9 +118,10 @@ export default async function DogPage({
             {/* Health Tests */}
             {dog.healthTests && dog.healthTests.length > 0 && (
               <section>
-                <h2 className="font-heading text-2xl font-semibold text-gray-800 mb-4">
-                  Health Tests
-                </h2>
+                <div className="flex items-center gap-4 mb-6">
+                  <h2 className="font-heading font-normal text-2xl md:text-3xl tracking-wide text-[#1a1714]">Health Tests</h2>
+                  <div className="flex-1 h-px bg-[#e8dfd2]" />
+                </div>
                 <HealthTestTable tests={dog.healthTests} dogName={dog.name} />
               </section>
             )}
@@ -127,26 +136,27 @@ export default async function DogPage({
             {/* Show Results */}
             {dog.showResults && dog.showResults.length > 0 && (
               <section>
-                <h2 className="font-heading text-2xl font-semibold text-gray-800 mb-4">
-                  Show Results
-                </h2>
-                <div className="overflow-x-auto">
+                <div className="flex items-center gap-4 mb-6">
+                  <h2 className="font-heading font-normal text-2xl md:text-3xl tracking-wide text-[#1a1714]">Show Results</h2>
+                  <div className="flex-1 h-px bg-[#e8dfd2]" />
+                </div>
+                <div className="overflow-x-auto border border-[#e8dfd2] rounded-lg">
                   <table className="w-full text-sm">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Show</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Date</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Result</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Judge</th>
+                    <thead>
+                      <tr className="bg-[#f5f0e8] border-b border-[#e8dfd2]">
+                        <th className="text-left py-3 px-4 font-body font-medium text-xs uppercase tracking-[0.1em] text-[#7a6c5c]">Show</th>
+                        <th className="text-left py-3 px-4 font-body font-medium text-xs uppercase tracking-[0.1em] text-[#7a6c5c]">Date</th>
+                        <th className="text-left py-3 px-4 font-body font-medium text-xs uppercase tracking-[0.1em] text-[#7a6c5c]">Result</th>
+                        <th className="text-left py-3 px-4 font-body font-medium text-xs uppercase tracking-[0.1em] text-[#7a6c5c]">Judge</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100">
+                    <tbody className="divide-y divide-[#f0ece4]">
                       {dog.showResults.map((result, i) => (
-                        <tr key={i} className="hover:bg-gray-50">
-                          <td className="py-3 px-4 font-medium">{result.showName}</td>
-                          <td className="py-3 px-4 text-gray-600">{formatDate(result.date)}</td>
-                          <td className="py-3 px-4 font-semibold text-primary-700">{result.result}</td>
-                          <td className="py-3 px-4 text-gray-600">{result.judge}</td>
+                        <tr key={i} className="hover:bg-[#faf8f3] transition-colors">
+                          <td className="py-3 px-4 font-body font-medium text-[#1a1714]">{result.showName}</td>
+                          <td className="py-3 px-4 font-body text-[#7a6c5c]">{formatDate(result.date)}</td>
+                          <td className="py-3 px-4 font-body font-semibold text-primary-700">{result.result}</td>
+                          <td className="py-3 px-4 font-body text-[#7a6c5c]">{result.judge}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -158,56 +168,57 @@ export default async function DogPage({
             {/* Gallery */}
             {dog.gallery && dog.gallery.length > 0 && (
               <section>
-                <h2 className="font-heading text-2xl font-semibold text-gray-800 mb-4">
-                  Gallery
-                </h2>
+                <div className="flex items-center gap-4 mb-6">
+                  <h2 className="font-heading font-normal text-2xl md:text-3xl tracking-wide text-[#1a1714]">Gallery</h2>
+                  <div className="flex-1 h-px bg-[#e8dfd2]" />
+                </div>
                 <Gallery images={dog.gallery} columns={3} />
               </section>
             )}
           </div>
 
           {/* Sidebar */}
-          <aside className="space-y-6">
-            {/* Main photo (mobile hidden — shown in hero) */}
-            <div className="bg-gray-50 rounded-xl p-6 space-y-3">
-              <h3 className="font-heading text-lg font-semibold text-gray-800">Details</h3>
-              <dl className="space-y-2 text-sm">
+          <aside className="space-y-5">
+            {/* Details */}
+            <div className="border border-[#e8dfd2] rounded-lg p-6">
+              <p className="text-xs font-body uppercase tracking-[0.2em] text-[#9e8e7e] mb-5">Details</p>
+              <dl className="space-y-3">
                 {dog.breed && (
-                  <div className="flex justify-between">
-                    <dt className="text-gray-500">Breed</dt>
-                    <dd className="font-medium text-gray-800">{dog.breed}</dd>
+                  <div className="flex justify-between items-baseline gap-4">
+                    <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">Breed</dt>
+                    <dd className="font-body text-sm font-medium text-[#1a1714] text-right">{dog.breed}</dd>
                   </div>
                 )}
                 {sexLabel && (
-                  <div className="flex justify-between">
-                    <dt className="text-gray-500">Sex</dt>
-                    <dd className="font-medium text-gray-800">{sexLabel}</dd>
+                  <div className="flex justify-between items-baseline gap-4">
+                    <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">Sex</dt>
+                    <dd className="font-body text-sm font-medium text-[#1a1714]">{sexLabel}</dd>
                   </div>
                 )}
                 {dog.dateOfBirth && (
-                  <div className="flex justify-between">
-                    <dt className="text-gray-500">Date of Birth</dt>
-                    <dd className="font-medium text-gray-800">{formatDate(dog.dateOfBirth)}</dd>
+                  <div className="flex justify-between items-baseline gap-4">
+                    <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">Born</dt>
+                    <dd className="font-body text-sm font-medium text-[#1a1714]">{formatDate(dog.dateOfBirth)}</dd>
                   </div>
                 )}
                 {dog.colour && (
-                  <div className="flex justify-between">
-                    <dt className="text-gray-500">Colour</dt>
-                    <dd className="font-medium text-gray-800">{dog.colour}</dd>
+                  <div className="flex justify-between items-baseline gap-4">
+                    <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">Colour</dt>
+                    <dd className="font-body text-sm font-medium text-[#1a1714] text-right">{dog.colour}</dd>
                   </div>
                 )}
                 {dog.registrationNumbers?.map((reg: { label: string; value: string }) => (
-                  <div key={reg.label} className="flex justify-between">
-                    <dt className="text-gray-500">{reg.label}</dt>
-                    <dd className="font-medium text-gray-800 text-right">{reg.value}</dd>
+                  <div key={reg.label} className="flex justify-between items-baseline gap-4">
+                    <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">{reg.label}</dt>
+                    <dd className="font-body text-sm font-medium text-[#1a1714] text-right">{reg.value}</dd>
                   </div>
                 ))}
-                {dog.status && dog.status !== 'none' && (
-                  <div className="flex justify-between">
-                    <dt className="text-gray-500">Status</dt>
+                {status && (
+                  <div className="flex justify-between items-center gap-4 pt-1">
+                    <dt className="font-body text-xs uppercase tracking-wide text-[#9e8e7e]">Status</dt>
                     <dd>
-                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${statusColors[dog.status] || 'bg-gray-100 text-gray-700'}`}>
-                        {dog.status.charAt(0).toUpperCase() + dog.status.slice(1)}
+                      <span className={`font-body text-xs font-medium uppercase tracking-wide px-2 py-0.5 border rounded ${status.classes}`}>
+                        {status.label}
                       </span>
                     </dd>
                   </div>
@@ -218,7 +229,7 @@ export default async function DogPage({
             {dog.allowEnquiry === true && (
               <a
                 href="/contact"
-                className="block w-full bg-primary-600 text-white text-center py-3 px-6 rounded-lg hover:bg-primary-700 transition-colors font-semibold"
+                className="block w-full bg-[#1a1714] text-[#f0e8d8] text-center py-3.5 px-6 hover:bg-[#c4a05a] hover:text-[#1a1714] transition-all duration-300 font-body text-sm tracking-[0.12em] uppercase"
               >
                 Enquire About This Dog
               </a>

@@ -13,35 +13,44 @@ interface HeroBlockProps {
 
 export default function HeroBlock({ image, title, subtitle, buttonLabel, buttonUrl }: HeroBlockProps) {
   return (
-    <div className="relative h-[70vh] min-h-[400px] max-h-[800px] flex items-end overflow-hidden bg-primary-900">
+    <div className="relative h-[75vh] min-h-[480px] max-h-[900px] flex items-end overflow-hidden bg-[#1a1714]">
       {image && (
         <Image
-          src={urlForImage(image).width(1600).height(900).url()}
+          src={urlForImage(image).width(1800).height(1000).url()}
           alt={title || 'Hero image'}
           fill
-          className="object-cover object-center"
+          className="object-cover object-center opacity-70"
           priority
           sizes="100vw"
         />
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-      <div className="relative z-10 px-4 sm:px-6 lg:px-8 pb-16 max-w-7xl mx-auto w-full">
+      {/* Layered gradient: subtle vignette + bottom fade */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
+
+      <div className="relative z-10 px-6 sm:px-8 lg:px-16 pb-16 md:pb-24 max-w-7xl mx-auto w-full">
+        {/* Gold rule accent */}
+        <div className="h-px w-16 bg-[#c4a05a] mb-6" />
+
         {title && (
-          <h1 className="font-heading text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg max-w-3xl">
+          <h1 className="font-heading font-normal text-5xl md:text-7xl lg:text-8xl text-white mb-5 max-w-4xl leading-tight tracking-wide">
             {title}
           </h1>
         )}
         {subtitle && (
-          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl leading-relaxed drop-shadow">
+          <p className="font-body text-lg md:text-xl text-white/75 mb-10 max-w-xl leading-relaxed">
             {subtitle}
           </p>
         )}
         {buttonLabel && buttonUrl && (
           <Link
             href={buttonUrl}
-            className="inline-block bg-primary-500 hover:bg-primary-400 text-white font-semibold px-8 py-4 rounded-xl transition-colors duration-200 text-lg shadow-lg"
+            className="inline-flex items-center gap-3 font-body text-sm tracking-[0.15em] uppercase border border-white/50 text-white hover:bg-white hover:text-[#1a1714] px-8 py-4 transition-all duration-300"
           >
             {buttonLabel}
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </Link>
         )}
       </div>

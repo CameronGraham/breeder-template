@@ -25,13 +25,18 @@ export default function PageHero({
 
   if (!image) {
     return (
-      <div className={`relative ${heightClass} bg-primary-800 flex items-center justify-center`}>
-        <div className="text-center px-4 max-w-4xl mx-auto">
-          <h1 className="font-heading text-3xl md:text-5xl font-bold text-white mb-4 drop-shadow">
+      <div className={`relative ${heightClass} bg-[#1a1714] flex items-end overflow-hidden`}>
+        {/* Subtle texture */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: 'radial-gradient(circle at 25% 50%, #c4a05a 0%, transparent 60%), radial-gradient(circle at 75% 20%, #3a9a3a 0%, transparent 50%)',
+        }} />
+        <div className="relative z-10 px-6 sm:px-8 lg:px-12 pb-10 md:pb-14 max-w-7xl mx-auto w-full">
+          <div className="h-px w-12 bg-[#c4a05a] mb-5" />
+          <h1 className="font-heading font-normal text-4xl md:text-6xl tracking-wide text-[#f0e8d8] mb-3 leading-tight">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-lg md:text-xl text-primary-100 max-w-2xl mx-auto leading-relaxed">
+            <p className="font-body text-base md:text-lg text-[#9e8e7e] max-w-xl leading-relaxed">
               {subtitle}
             </p>
           )}
@@ -51,15 +56,16 @@ export default function PageHero({
         sizes="100vw"
       />
       {overlay && (
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
       )}
-      <div className="absolute inset-0 flex items-end pb-10 md:pb-16">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-          <h1 className="font-heading text-3xl md:text-5xl font-bold text-white mb-3 drop-shadow-lg">
+      <div className="absolute inset-0 flex items-end">
+        <div className="px-6 sm:px-8 lg:px-12 pb-10 md:pb-14 max-w-7xl mx-auto w-full">
+          <div className="h-px w-12 bg-[#c4a05a] mb-5" />
+          <h1 className="font-heading font-normal text-4xl md:text-6xl tracking-wide text-white mb-3 leading-tight drop-shadow-lg">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed drop-shadow">
+            <p className="font-body text-base md:text-lg text-white/80 max-w-xl leading-relaxed drop-shadow">
               {subtitle}
             </p>
           )}
